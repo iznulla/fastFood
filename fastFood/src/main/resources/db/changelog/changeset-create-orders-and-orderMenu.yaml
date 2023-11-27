@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7-create-orders-and-orders-menu-items-tables
+      author: codela
+      changes:
+        - createTable:
+            tableName: Orders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: customer_id
+                  type: bigint
+              - column:
+                  name: menu_id
+                  type: bigint
+              - column:
+                  name: quantity
+                  type: INT
+              - column:
+                  name: order_date
+                  type: timestamp
+              - column:
+                  name: total_price
+                  type: INT
+            foreignKeyConstraints:
+              - foreignKeyConstraint:
+                  baseTableName: Orders
+                  baseColumnNames: user_id
+                  referencedTableName: users
+                  referencedColumnNames: id
+                  name: fk_orders_customer
+              - foreignKeyConstraint:
+                  baseTableName: Orders
+                  baseColumnNames: menu_id
+                  referencedTableName: menu
+                  referencedColumnNames: id
+                  name: fk_orders_menu
+        - createTable:
+            tableName: Orders_Menu_Items
+            columns:
+              - column:
+                  name: order_id
+                  type: INT
+              - column:
+                  name: menu_id
+                  type: INT
+            constraints:
+              primaryKey:
+                name: pk_orders_menu_items
+                columnNames: order_id, menu_id
+            foreignKeyConstraints:
+              - foreignKeyConstraint:
+                  baseTableName: Orders_Menu_Items
+                  baseColumnNames: order_id
+                  referencedTableName: Orders
+                  referencedColumnNames: order_id
+                  name: fk_omi_order
+              - foreignKeyConstraint:
+                  baseTableName: Orders_Menu_Items
+                  baseColumnNames: menu_id
+                  referencedTableName: Menu
+                  referencedColumnNames: menu_id
+                  name: fk_omi_menu

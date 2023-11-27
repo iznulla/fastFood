@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 9-drop-tables-order-order-menu
+      author: codela
+      changes:
+        - dropTable:
+            tableName: orders
+            cascadeConstraints: true
+        - dropTable:
+            tableName: menu
+            cascadeConstraints: true
+        - dropTable:
+            tableName: Orders_Menu_Items
+            cascadeConstraints: true

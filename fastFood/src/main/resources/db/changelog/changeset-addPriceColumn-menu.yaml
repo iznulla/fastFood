@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4-add-price
+      author: codela
+      changes:
+        - addColumn:
+            tableName: menu
+            columns:
+              - column:
+                  name: price
+                  type: numeric

@@ -1,0 +1,13 @@
+databaseChangeLog:
+    - changeSet:
+        id: 2-add-unique-constraint-id
+        author: codela
+        changes:
+          - addAutoIncrement:
+              columnName: user_id
+              defaultOnNull: false
+              generationType: ALWAYS
+              incrementBy: 1
+              schemaName: public
+              startWith: 1
+              tableName: users

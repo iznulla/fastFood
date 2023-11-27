@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6-renameColumn-user-menu
+      author: codela
+      changes:
+        - renameColumn:
+            newColumnName: id
+            oldColumnName: user_id
+            tableName: users
+        - renameColumn:
+            newColumnName: id
+            oldColumnName: menu_id
+            tableName: menu

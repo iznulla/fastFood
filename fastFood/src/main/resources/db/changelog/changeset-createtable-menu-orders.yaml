@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10-create-menu-orders-table
+      author: codela
+      changes:
+        - createTable:
+            tableName: menu
+            columns:
+              - column:
+                  name: menu_id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+              - column:
+                  name: created_at
+                  type: timestamp
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: customer_id
+                  type: bigint
+              - column:
+                  name: menu_id
+                  type: bigint
+              - column:
+                  name: quantity
+                  type: INT
+              - column:
+                  name: order_date
+                  type: timestamp
+              - column:
+                  name: total_price
+                  type: INT
+            foreignKeyConstraints:
+              - foreignKeyConstraint:
+                  baseTableName: orders
+                  baseColumnNames: customer_id
+                  referencedTableName: users
+                  referencedColumnNames: id
+                  name: fk_orders_customer
+              - foreignKeyConstraint:
+                  baseTableName: orders
+                  baseColumnNames: menu_id
+                  referencedTableName: menu
+                  referencedColumnNames: menu_id
+                  name: fk_orders_menu

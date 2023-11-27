@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3-create-menu
+      author: codela
+      changes:
+        - createTable:
+            tableName: menu
+            columns:
+              - column:
+                  name: menu_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    defaultOnNull: false
+                    generationType: ALWAYS
+                    incrementBy: 1
+                    schemaName: public
+                    startWith: 1
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    - unique: true
+              - column:
+                  name: create_at
+                  type: timestamp
