@@ -2,8 +2,10 @@ package com.test.fastFood.controller.orderController;
 
 
 import com.test.fastFood.dto.orderDTO.OrderDto;
+import com.test.fastFood.dto.orderDTO.OrderStatusDto;
 import com.test.fastFood.entity.OrderEntity;
 import com.test.fastFood.entity.OrderMenuEntity;
+import com.test.fastFood.entity.OrderStatus;
 import com.test.fastFood.service.orderService.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +19,6 @@ public class OrderController {
 
     @GetMapping
     public List<OrderEntity> getAllOrders() {
-//        for (OrderEntity or : orderService.getAllOrders()) {
-//            for (OrderMenuEntity om : or.getOrderMenuEntities()) {
-//                System.out.println(om.getMenu());
-//            }
-//        }
         return orderService.getAllOrders();
     }
 
@@ -34,4 +31,13 @@ public class OrderController {
     public void createOrder(@RequestBody OrderDto orderDto) {
         orderService.createOrder(orderDto);
     }
+
+    @PatchMapping("/{id}")
+    public void updateOrder(@PathVariable Long id, @RequestBody OrderStatusDto orderStatus) {
+        orderService.updateOrder(id, orderStatus);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteOrder(@PathVariable Long id)
+    {orderService.deleteOrder(id);}
 }

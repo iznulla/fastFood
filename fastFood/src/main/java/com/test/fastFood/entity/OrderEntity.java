@@ -1,5 +1,6 @@
 package com.test.fastFood.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,6 +10,8 @@ import java.util.List;
 
 @Entity
 //@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +24,7 @@ public class OrderEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
     private UserEntity user;
 
     @Builder.Default
@@ -30,54 +34,12 @@ public class OrderEntity {
     private Integer quantity;
     private Instant orderAt;
     private Integer totalPrice;
+    @Enumerated(value = EnumType.STRING)
+    private OrderStatus orderStatus = OrderStatus.PROCESSING;
 
-
-    public Long getId() {
-        return id;
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-//    public UserEntity getUser() {
-//        return user;
-//    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
-    public List<OrderMenuEntity> getOrderMenuEntities() {
-        return orderMenuEntities;
-    }
-
-    public void setOrderMenuEntities(List<OrderMenuEntity> orderMenuEntities) {
-        this.orderMenuEntities = orderMenuEntities;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Instant getOrderAt() {
-        return orderAt;
-    }
-
-    public void setOrderAt(Instant orderAt) {
-        this.orderAt = orderAt;
-    }
-
-    public Integer getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Integer totalPrice) {
-        this.totalPrice = totalPrice;
-    }
 
 }

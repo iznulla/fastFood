@@ -9,6 +9,8 @@ import java.util.List;
 
 @Entity
 //@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,53 +39,5 @@ public class MenuEntity {
                 ", price=" + price +
                 ", createAt=" + createAt +
                 '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Instant getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Instant createAt) {
-        this.createAt = createAt;
-    }
-
-//    public UserEntity getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(UserEntity user) {
-//        this.user = user;
-//    }
-
-    public List<OrderMenuEntity> getOrderMenuEntities() {
-        return orderMenuEntities;
-    }
-
-    public void setOrderMenuEntities(List<OrderMenuEntity> orderMenuEntities) {
-        this.orderMenuEntities = orderMenuEntities;
     }
 }

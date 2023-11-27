@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@ToString(exclude = "orders")
+//@ToString(exclude = "orders")
 //@EqualsAndHashCode(of = "username")
 @Table(name = "users")
 public class UserEntity {

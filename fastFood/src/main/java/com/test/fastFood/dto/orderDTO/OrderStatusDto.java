@@ -1,19 +1,17 @@
 package com.test.fastFood.dto.orderDTO;
 
-import com.test.fastFood.entity.MenuEntity;
+import com.test.fastFood.entity.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Data
 @Component
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDto {
-    private List<OrderBuilder> orderMenu;
+public class OrderStatusDto {
+    private OrderStatus orderStatus;
 }

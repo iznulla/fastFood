@@ -2,10 +2,8 @@ package com.test.fastFood.service.orderService;
 
 import com.test.fastFood.dto.orderDTO.OrderBuilder;
 import com.test.fastFood.dto.orderDTO.OrderDto;
-import com.test.fastFood.entity.MenuEntity;
-import com.test.fastFood.entity.OrderEntity;
-import com.test.fastFood.entity.OrderMenuEntity;
-import com.test.fastFood.entity.UserEntity;
+import com.test.fastFood.dto.orderDTO.OrderStatusDto;
+import com.test.fastFood.entity.*;
 import com.test.fastFood.repository.OrderMenuRepository;
 import com.test.fastFood.repository.OrderRepository;
 import com.test.fastFood.service.menuService.MenuService;
@@ -57,13 +55,6 @@ public class OrderServiceImpl implements OrderService{
         orderRepository.save(orderEntity);
     }
 
-    private Integer calculateTotalPrice(List<MenuEntity> menuEntities) {
-        // Implement your logic to calculate total price based on menu items
-        // This is just a placeholder, replace it with your actual logic
-        return menuEntities.stream().mapToInt(MenuEntity::getPrice).sum();
-    }
-
-
     @Override
     public List<OrderEntity> getAllOrders() {
         return orderRepository.findAll();
@@ -78,5 +69,17 @@ public class OrderServiceImpl implements OrderService{
     public List<OrderEntity> findOrdersByUser(Long id) {
         UserEntity user = userService.getUserById(id).orElseThrow();
         return orderRepository.findByUser(user);
+    }
+
+    @Override
+    public void updateOrder(Long id, OrderStatusDto orderStatus) {
+        OrderEntity order = orderRepository.findById(id).orElseThrow();
+        order.setOrderStatus(orderStatus.getOrderStatus());
+        orderRepository.save(order);
+    }
+
+    @Override
+    public void deleteOrder(Long id) {
+        orderRepository.delete(orderRepository.findById(id).orElseThrow());
     }
 }
