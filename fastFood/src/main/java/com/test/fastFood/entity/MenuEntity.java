@@ -8,14 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@Data
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@ToString(exclude = {"orderMenuEntities"})
-//@EqualsAndHashCode(of = "name")
 @Table(name = "menu")
 public class MenuEntity {
     @Id

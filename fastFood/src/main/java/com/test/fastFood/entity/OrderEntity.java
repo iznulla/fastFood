@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@Data
 @Getter
 @Setter
 @Builder
@@ -35,11 +34,6 @@ public class OrderEntity {
     private Instant orderAt;
     private Integer totalPrice;
     @Enumerated(value = EnumType.STRING)
-    private OrderStatus orderStatus = OrderStatus.PROCESSING;
-
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
+    private OrderStatus orderStatus;
 
 }

@@ -1,6 +1,5 @@
 package com.test.fastFood.dto.orderDTO;
 
-import com.test.fastFood.entity.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +11,8 @@ import org.springframework.stereotype.Component;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderBuilder {
-    private Long menuId;
+public class OrderMenuDto {
+    private String name;
+    private Integer price;
     private Integer quantity;
 }

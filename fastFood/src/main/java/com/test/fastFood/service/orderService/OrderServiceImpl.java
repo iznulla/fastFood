@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService{
     @Autowired private OrderMenuRepository orderMenuRepository;
 
     @Override
-    public void createOrder(OrderDto orderDto) {
+    public OrderEntity createOrder(OrderDto orderDto) {
         Integer totalSum = 0;
         Integer totalQuantity = 0;
         UserEntity user = userService.getUserById(6L).orElseThrow();
@@ -43,8 +43,10 @@ public class OrderServiceImpl implements OrderService{
         for (OrderBuilder orderBuilder : orderDto.getOrderMenu()) {
             OrderMenuEntity orderMenuEntity = new OrderMenuEntity();
             orderMenuEntity.setOrder(orderEntity);
-            MenuEntity menu = menuService.findById(orderBuilder.getId()).orElseThrow();
+            System.out.println(orderBuilder.getMenuId());
+            MenuEntity menu = menuService.findById(orderBuilder.getMenuId()).orElseThrow();
             orderMenuEntity.setMenu(menu);
+            orderMenuEntity.setQuantity(orderBuilder.getQuantity());
             totalSum += menu.getPrice();
             totalQuantity += orderBuilder.getQuantity();
             orderMenuEntities.add(orderMenuEntity);
@@ -53,6 +55,7 @@ public class OrderServiceImpl implements OrderService{
         orderEntity.setQuantity(totalQuantity);
         orderEntity.setOrderMenuEntities(orderMenuEntities);
         orderRepository.save(orderEntity);
+        return orderEntity;
     }
 
     @Override
@@ -61,21 +64,22 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Optional<OrderEntity> findOrderById(Long id) {
+    public Optional<OrderEntity> getOrderById(Long id) {
         return Optional.empty();
     }
 
     @Override
-    public List<OrderEntity> findOrdersByUser(Long id) {
+    public List<OrderEntity> getOrdersByUser(Long id) {
         UserEntity user = userService.getUserById(id).orElseThrow();
         return orderRepository.findByUser(user);
     }
 
     @Override
-    public void updateOrder(Long id, OrderStatusDto orderStatus) {
+    public OrderEntity updateOrder(Long id, OrderStatus orderStatus) {
         OrderEntity order = orderRepository.findById(id).orElseThrow();
-        order.setOrderStatus(orderStatus.getOrderStatus());
+        order.setOrderStatus(orderStatus);
         orderRepository.save(order);
+        return order;
     }
 
     @Override

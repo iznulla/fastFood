@@ -1,16 +1,18 @@
 package com.test.fastFood.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.test.fastFood.dto.menuDTO.MenuDto;
+import com.test.fastFood.dto.orderDTO.OrderMenuDto;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-//@Data
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@ToString(exclude = {"order", "menu"})
 @Table(name = "Orders_Menu_Items")
 public class OrderMenuEntity {
     @Id
@@ -19,19 +21,21 @@ public class OrderMenuEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     private OrderEntity order;
-
-
-    public MenuDto getMenu() {
-        return MenuDto.builder()
-                .name(menu.getName())
-                .price(menu.getPrice())
-                .build();
-    }
-
     @ManyToOne
     @JoinColumn(name = "menu_id")
+    @JsonIgnore
     private MenuEntity menu;
+    private Integer quantity;
+
+
+//    public MenuDto getMenu() {
+//        return MenuDto.builder()
+//                .name(menu.getName())
+//                .price(menu.getPrice())
+//                .build();
+//    }
 
     public void setOrder(OrderEntity order) {
         this.order = order;

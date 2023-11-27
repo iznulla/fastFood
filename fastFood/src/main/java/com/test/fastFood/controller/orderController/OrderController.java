@@ -1,11 +1,12 @@
 package com.test.fastFood.controller.orderController;
 
 
+import com.test.fastFood.dto.orderDTO.OrderBuilder;
 import com.test.fastFood.dto.orderDTO.OrderDto;
 import com.test.fastFood.dto.orderDTO.OrderStatusDto;
 import com.test.fastFood.entity.OrderEntity;
-import com.test.fastFood.entity.OrderMenuEntity;
 import com.test.fastFood.entity.OrderStatus;
+import com.test.fastFood.entity.UserEntity;
 import com.test.fastFood.service.orderService.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,17 +25,18 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public List<OrderEntity> getOrdersByUser(@PathVariable Long id) {
-        return orderService.findOrdersByUser(id);
+        return orderService.getOrdersByUser(id);
     }
 
     @PostMapping
-    public void createOrder(@RequestBody OrderDto orderDto) {
-        orderService.createOrder(orderDto);
+    public OrderEntity createOrder(@RequestBody OrderDto orderDto) {
+        return orderService.createOrder(orderDto);
     }
 
     @PatchMapping("/{id}")
-    public void updateOrder(@PathVariable Long id, @RequestBody OrderStatusDto orderStatus) {
-        orderService.updateOrder(id, orderStatus);
+    public OrderEntity updateOrder(@PathVariable Long id, @RequestBody OrderStatusDto orderStatus) {
+        System.out.println(orderStatus);
+        return orderService.updateOrder(id, orderStatus.getOrderStatus());
     }
 
     @DeleteMapping("/{id}")
