@@ -1,5 +1,6 @@
 package com.test.fastFood.service.orderService;
 
+import com.test.fastFood.dto.orderDTO.OrderBuilder;
 import com.test.fastFood.dto.orderDTO.OrderDto;
 import com.test.fastFood.entity.MenuEntity;
 import com.test.fastFood.entity.OrderEntity;
@@ -32,22 +33,26 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public void createOrder(OrderDto orderDto) {
-        UserEntity user = userService.getUserById(7L).orElseThrow();
+        Integer totalSum = 0;
+        Integer totalQuantity = 0;
+        UserEntity user = userService.getUserById(6L).orElseThrow();
         OrderEntity orderEntity = new OrderEntity();
-//        orderEntity.setUser(user);
+        orderEntity.setUser(user);
         orderEntity.setOrderAt(Instant.now());
-        orderEntity.setTotalPrice(calculateTotalPrice(orderDto.getMenuEntityList()));
-        orderEntity.setQuantity(3);
 
         List<OrderMenuEntity> orderMenuEntities = new ArrayList<>();
 
-        for (MenuEntity menuEntity : orderDto.getMenuEntityList()) {
+        for (OrderBuilder orderBuilder : orderDto.getOrderMenu()) {
             OrderMenuEntity orderMenuEntity = new OrderMenuEntity();
             orderMenuEntity.setOrder(orderEntity);
-            orderMenuEntity.setMenu(menuEntity);
+            MenuEntity menu = menuService.findById(orderBuilder.getId()).orElseThrow();
+            orderMenuEntity.setMenu(menu);
+            totalSum += menu.getPrice();
+            totalQuantity += orderBuilder.getQuantity();
             orderMenuEntities.add(orderMenuEntity);
         }
-
+        orderEntity.setTotalPrice(totalSum);
+        orderEntity.setQuantity(totalQuantity);
         orderEntity.setOrderMenuEntities(orderMenuEntities);
         orderRepository.save(orderEntity);
     }

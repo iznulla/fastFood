@@ -17,11 +17,11 @@ public class OrderController {
 
     @GetMapping
     public List<OrderEntity> getAllOrders() {
-        for (OrderEntity or : orderService.getAllOrders()) {
-            for (OrderMenuEntity om : or.getOrderMenuEntities()) {
-                System.out.println(om.getMenu());
-            }
-        }
+//        for (OrderEntity or : orderService.getAllOrders()) {
+//            for (OrderMenuEntity om : or.getOrderMenuEntities()) {
+//                System.out.println(om.getMenu());
+//            }
+//        }
         return orderService.getAllOrders();
     }
 

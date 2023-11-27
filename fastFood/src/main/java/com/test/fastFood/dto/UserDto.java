@@ -1,20 +1,17 @@
-package com.test.fastFood.dto.orderDTO;
+package com.test.fastFood.dto;
 
-import com.test.fastFood.entity.MenuEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Data
 @Component
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDto {
-//    private Long userId;
-    private List<OrderBuilder> orderMenu;
+public class UserDto {
+    private Long userId;
+    private String username;
 }
