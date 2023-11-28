@@ -15,5 +15,5 @@ import org.springframework.stereotype.Component;
 public class MenuDto {
     private String name;
     private Integer price;
-    private Integer quantity;
+    private Integer cookingTime;
 }

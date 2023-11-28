@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "orders")
 public class OrderEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,9 +30,8 @@ public class OrderEntity {
     private List<OrderMenuEntity> orderMenuEntities = new ArrayList<>();
 
     private Integer quantity;
-    private Instant orderAt;
     private Integer totalPrice;
-    @Enumerated(value = EnumType.STRING)
-    private OrderStatus orderStatus;
 
+    @OneToOne(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private OrderInformation information;
 }

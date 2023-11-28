@@ -21,3 +21,5 @@ databaseChangeLog:
       file: db/changelog/changeset-createtable-menu-orders.yaml
   - include:
       file: db/changelog/changeset-droptables-menu-order.yaml
+  - include:
+      file: db/changelog/changeset-dropcolumn-from-menu.yaml

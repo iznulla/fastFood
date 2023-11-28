@@ -9,8 +9,8 @@ import javax.persistence.*;
 
 @Entity
 @Builder
-@Getter
-@Setter
+//@Getter
+//@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Orders_Menu_Items")
@@ -21,21 +21,27 @@ public class OrderMenuEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    @JsonIgnore
+//    @JsonIgnore
     private OrderEntity order;
     @ManyToOne
     @JoinColumn(name = "menu_id")
-    @JsonIgnore
+//    @JsonIgnore
     private MenuEntity menu;
     private Integer quantity;
 
 
-//    public MenuDto getMenu() {
-//        return MenuDto.builder()
-//                .name(menu.getName())
-//                .price(menu.getPrice())
-//                .build();
-//    }
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public OrderMenuDto getMenu() {
+        return OrderMenuDto.builder()
+                .name(menu.getName())
+                .price(menu.getPrice())
+                .quantity(quantity)
+                .build();
+    }
+
 
     public void setOrder(OrderEntity order) {
         this.order = order;

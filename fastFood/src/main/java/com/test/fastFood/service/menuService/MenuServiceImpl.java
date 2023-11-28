@@ -24,6 +24,7 @@ public class MenuServiceImpl implements MenuService{
                 .name(menuDto.getName())
                 .price(menuDto.getPrice())
                 .createAt(Instant.now())
+                .cookingTime(menuDto.getCookingTime())
                 .build();
         repository.save(menu);
     }

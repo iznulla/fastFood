@@ -8,6 +8,7 @@ import com.test.fastFood.repository.OrderMenuRepository;
 import com.test.fastFood.repository.OrderRepository;
 import com.test.fastFood.service.menuService.MenuService;
 import com.test.fastFood.service.userService.UserServiceImpl;
+import com.test.fastFood.utils.OrderUtils;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,18 @@ public class OrderServiceImpl implements OrderService{
     public OrderEntity createOrder(OrderDto orderDto) {
         Integer totalSum = 0;
         Integer totalQuantity = 0;
+
         UserEntity user = userService.getUserById(6L).orElseThrow();
         OrderEntity orderEntity = new OrderEntity();
+
         orderEntity.setUser(user);
-        orderEntity.setOrderAt(Instant.now());
+//        orderEntity.setOrderAt(Instant.now());
 
         List<OrderMenuEntity> orderMenuEntities = new ArrayList<>();
 
         for (OrderBuilder orderBuilder : orderDto.getOrderMenu()) {
             OrderMenuEntity orderMenuEntity = new OrderMenuEntity();
             orderMenuEntity.setOrder(orderEntity);
-            System.out.println(orderBuilder.getMenuId());
             MenuEntity menu = menuService.findById(orderBuilder.getMenuId()).orElseThrow();
             orderMenuEntity.setMenu(menu);
             orderMenuEntity.setQuantity(orderBuilder.getQuantity());
@@ -51,9 +53,16 @@ public class OrderServiceImpl implements OrderService{
             totalQuantity += orderBuilder.getQuantity();
             orderMenuEntities.add(orderMenuEntity);
         }
+        OrderInformation orderInformation = OrderUtils.getOrderInformation(
+                orderEntity,
+                totalQuantity,
+                3.0
+        );
         orderEntity.setTotalPrice(totalSum);
         orderEntity.setQuantity(totalQuantity);
         orderEntity.setOrderMenuEntities(orderMenuEntities);
+        orderEntity.setInformation(orderInformation);
+
         orderRepository.save(orderEntity);
         return orderEntity;
     }
@@ -77,7 +86,6 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public OrderEntity updateOrder(Long id, OrderStatus orderStatus) {
         OrderEntity order = orderRepository.findById(id).orElseThrow();
-        order.setOrderStatus(orderStatus);
         orderRepository.save(order);
         return order;
     }

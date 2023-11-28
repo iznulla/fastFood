@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/menu")
+@RequestMapping("/menu")
 public class MenuController {
     @Autowired private MenuService menuService;
 
@@ -20,7 +20,6 @@ public class MenuController {
         menuService.create(menuDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
     @GetMapping
     public List<MenuEntity> getAllMenu() {
         return menuService.findAllMenu();

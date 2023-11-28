@@ -1,6 +1,6 @@
 package com.test.fastFood.dto.orderDTO;
 
-import com.test.fastFood.entity.OrderStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

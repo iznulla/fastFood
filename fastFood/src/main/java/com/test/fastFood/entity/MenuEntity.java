@@ -22,6 +22,7 @@ public class MenuEntity {
     private String name;
     private Integer price;
     private Instant createAt;
+    private Integer cookingTime;
 
 
     @Builder.Default

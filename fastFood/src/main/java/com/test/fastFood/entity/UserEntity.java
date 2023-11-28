@@ -22,7 +22,6 @@ public class UserEntity {
     private Long userId;
     private String username;
     private String password;
-
     @Enumerated(value = EnumType.STRING)
     private Role role;
     private Instant createAt;
