@@ -1,7 +1,5 @@
-package com.test.fastFood.dto.menuDTO;
+package com.test.fastFood.dto.usetDTO;
 
-
-import com.test.fastFood.entity.MenuEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,8 +11,7 @@ import org.springframework.stereotype.Component;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuDto {
-    private String name;
-    private Integer price;
-    private Integer cookingTime;
+public class UserDtoTest {
+    private Long userId;
+    private String username;
 }

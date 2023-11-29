@@ -4,6 +4,7 @@ import com.test.fastFood.service.secureService.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,6 +34,10 @@ public class WebSecurityConfig {
                         registry
                                 .antMatchers("/admin/login").permitAll()
                                 .antMatchers("/admin/**").hasRole("ADMIN")
+//                                .antMatchers("/users").hasRole("ADMIN")
+//                                .antMatchers(HttpMethod.DELETE,"/users/**").hasRole("ADMIN")
+//                                .antMatchers(HttpMethod.POST,"/users").hasRole("ADMIN")
+//                                .antMatchers(HttpMethod.PATCH,"/users/**").hasRole("ADMIN")
                                 .anyRequest().authenticated());
         return http.build();
     }

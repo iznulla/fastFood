@@ -3,11 +3,10 @@ package com.test.fastFood.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Data
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,7 +23,9 @@ public class UserEntity {
     private String password;
     @Enumerated(value = EnumType.STRING)
     private Role role;
-    private Instant createAt;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
+    private UserProfile userProfile;
 
     @Builder.Default
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
@@ -37,7 +38,6 @@ public class UserEntity {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", role=" + role +
-                ", createAt=" + createAt +
                 '}';
     }
 

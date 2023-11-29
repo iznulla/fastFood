@@ -1,20 +1,17 @@
 package com.test.fastFood.service.orderService;
 
 import com.test.fastFood.dto.orderDTO.OrderBuilder;
-import com.test.fastFood.dto.orderDTO.OrderDto;
-import com.test.fastFood.dto.orderDTO.OrderStatusDto;
+import com.test.fastFood.dto.orderDTO.OrderCreateDto;
 import com.test.fastFood.entity.*;
-import com.test.fastFood.repository.OrderMenuRepository;
 import com.test.fastFood.repository.OrderRepository;
 import com.test.fastFood.service.menuService.MenuService;
 import com.test.fastFood.service.userService.UserServiceImpl;
 import com.test.fastFood.utils.OrderUtils;
+import com.test.fastFood.utils.SecurityUtils;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,22 +25,20 @@ public class OrderServiceImpl implements OrderService{
     @Autowired private OrderRepository orderRepository;
     @Autowired private UserServiceImpl userService;
     @Autowired private MenuService menuService;
-    @Autowired private OrderMenuRepository orderMenuRepository;
 
     @Override
-    public OrderEntity createOrder(OrderDto orderDto) {
+    public Optional<OrderEntity> createOrder(OrderCreateDto orderCreateDto) {
         Integer totalSum = 0;
         Integer totalQuantity = 0;
 
-        UserEntity user = userService.getUserById(6L).orElseThrow();
+        UserEntity user = userService.getUserById(SecurityUtils.getCurrentUserId()).orElseThrow();
         OrderEntity orderEntity = new OrderEntity();
 
         orderEntity.setUser(user);
-//        orderEntity.setOrderAt(Instant.now());
 
         List<OrderMenuEntity> orderMenuEntities = new ArrayList<>();
 
-        for (OrderBuilder orderBuilder : orderDto.getOrderMenu()) {
+        for (OrderBuilder orderBuilder : orderCreateDto.getOrderMenu()) {
             OrderMenuEntity orderMenuEntity = new OrderMenuEntity();
             orderMenuEntity.setOrder(orderEntity);
             MenuEntity menu = menuService.findById(orderBuilder.getMenuId()).orElseThrow();
@@ -64,7 +59,7 @@ public class OrderServiceImpl implements OrderService{
         orderEntity.setInformation(orderInformation);
 
         orderRepository.save(orderEntity);
-        return orderEntity;
+        return Optional.of(orderEntity);
     }
 
     @Override
@@ -74,7 +69,8 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public Optional<OrderEntity> getOrderById(Long id) {
-        return Optional.empty();
+        OrderEntity order = orderRepository.findById(id).orElseThrow();
+        return Optional.of(order);
     }
 
     @Override
@@ -84,10 +80,10 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderEntity updateOrder(Long id, OrderStatus orderStatus) {
+    public Optional<OrderEntity> updateOrder(Long id, OrderStatus orderStatus) {
         OrderEntity order = orderRepository.findById(id).orElseThrow();
         orderRepository.save(order);
-        return order;
+        return Optional.of(order);
     }
 
     @Override

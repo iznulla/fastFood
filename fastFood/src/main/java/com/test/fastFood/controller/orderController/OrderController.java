@@ -1,42 +1,46 @@
 package com.test.fastFood.controller.orderController;
 
 
-import com.test.fastFood.dto.orderDTO.OrderBuilder;
+import com.test.fastFood.dto.orderDTO.OrderCreateDto;
 import com.test.fastFood.dto.orderDTO.OrderDto;
 import com.test.fastFood.dto.orderDTO.OrderStatusDto;
 import com.test.fastFood.entity.OrderEntity;
-import com.test.fastFood.entity.OrderStatus;
-import com.test.fastFood.entity.UserEntity;
 import com.test.fastFood.service.orderService.OrderService;
+import com.test.fastFood.utils.ConvertDtoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
     @Autowired private OrderService orderService;
 
+    @PostMapping
+    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderCreateDto orderCreateDto) {
+        return new ResponseEntity<>(ConvertDtoUtils.convertOrderToDto(orderService.createOrder(orderCreateDto).orElseThrow()),
+                HttpStatus.CREATED);
+    }
     @GetMapping
-    public List<OrderEntity> getAllOrders() {
-        return orderService.getAllOrders();
+    public ResponseEntity<List<OrderDto>> getAllOrders() {
+        return new ResponseEntity<>(orderService.getAllOrders()
+                .stream().map(ConvertDtoUtils::convertOrderToDto)
+                .collect(Collectors.toList()), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public List<OrderEntity> getOrdersByUser(@PathVariable Long id) {
-        return orderService.getOrdersByUser(id);
-    }
-
-    @PostMapping
-    public OrderEntity createOrder(@RequestBody OrderDto orderDto) {
-        return orderService.createOrder(orderDto);
+    public ResponseEntity<OrderDto> getOrdersById(@PathVariable Long id) {
+        return new ResponseEntity<>(ConvertDtoUtils.convertOrderToDto(orderService.getOrderById(id).orElseThrow()), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")
-    public OrderEntity updateOrder(@PathVariable Long id, @RequestBody OrderStatusDto orderStatus) {
-        System.out.println(orderStatus);
-        return orderService.updateOrder(id, orderStatus.getOrderStatus());
+    public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id, @RequestBody OrderStatusDto orderStatus) {
+        return new ResponseEntity<>(ConvertDtoUtils.convertOrderToDto(orderService.updateOrder(id, orderStatus.getOrderStatus()).orElseThrow()),
+                HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

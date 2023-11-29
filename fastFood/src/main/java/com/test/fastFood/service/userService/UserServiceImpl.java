@@ -1,8 +1,9 @@
 package com.test.fastFood.service.userService;
 
-import com.test.fastFood.dto.loginDTO.CreateUserDto;
+import com.test.fastFood.dto.usetDTO.UserDto;
 import com.test.fastFood.entity.Role;
 import com.test.fastFood.entity.UserEntity;
+import com.test.fastFood.entity.UserProfile;
 import com.test.fastFood.repository.UserRepository;
 import lombok.Builder;
 import lombok.Data;
@@ -17,28 +18,27 @@ import java.util.Optional;
 @Data
 @Builder
 public class UserServiceImpl implements UserService {
-    @Autowired private UserRepository repository;
+    @Autowired
+    private UserRepository repository;
 
     @Override
-    public CreateUserDto createUser(CreateUserDto createUserDto) {
+    public Optional<UserEntity> createUser(UserDto userDto) {
         UserEntity user = UserEntity.builder()
-                .username(createUserDto.getUsername())
-                .password(createUserDto.getPassword())
+                .username(userDto.getUsername())
+                .password(userDto.getPassword())
                 .role(Role.USER)
-                .createAt(Instant.now())
                 .build();
+        UserProfile profile = UserProfile.builder()
+                .user(user)
+                .name(userDto.getName())
+                .surname(userDto.getSurname())
+                .address(userDto.getAddress())
+                .createAt(Instant.now()).build();
+        user.setUserProfile(profile);
         repository.save(user);
-        return null;
+        return Optional.of(user);
     }
 
-
-    public static CreateUserDto convertUserToDto(UserEntity user) {
-        return CreateUserDto.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .role(user.getRole())
-                .build();
-    }
 
     @Override
     public List<UserEntity> findAllUsers() {
@@ -59,11 +59,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserEntity> updateUser(Long id, CreateUserDto createUserDto) {
-        UserEntity user  = repository.findById(id).orElseThrow();
-        user.setUsername(createUserDto.getUsername());
-        user.setPassword(createUserDto.getPassword());
-        user.setRole(createUserDto.getRole());
+    public Optional<UserEntity> updateUser(Long id, UserDto userDto) {
+        UserEntity user = repository.findById(id).orElseThrow();
+        user.setUsername(userDto.getUsername());
+        user.setPassword(userDto.getPassword());
+        user.setRole(userDto.getRole());
         repository.save(user);
         return Optional.of(user);
     }
