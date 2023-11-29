@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/admin/login")
+@RequestMapping("/login")
 @RequiredArgsConstructor
 public class AuthController {
     private final LoginManagerService loginManagerService;
 
     @PostMapping
     public LoginResponseDto login(@RequestBody LoginUserDto loginUserDto) {
-        System.out.println(loginUserDto.getPassword());
         return loginManagerService.attemptLogin(loginUserDto.getUsername(), loginUserDto.getPassword());
     }
 }

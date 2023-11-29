@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService{
             MenuEntity menu = menuService.findById(orderBuilder.getMenuId()).orElseThrow();
             orderMenuEntity.setMenu(menu);
             orderMenuEntity.setQuantity(orderBuilder.getQuantity());
-            totalSum += menu.getPrice();
+            totalSum += menu.getPrice() * orderBuilder.getQuantity();
             totalQuantity += orderBuilder.getQuantity();
             orderMenuEntities.add(orderMenuEntity);
         }
@@ -53,6 +53,7 @@ public class OrderServiceImpl implements OrderService{
                 totalQuantity,
                 3.0
         );
+        orderInformation.setAddress(orderCreateDto.getAddress());
         orderEntity.setTotalPrice(totalSum);
         orderEntity.setQuantity(totalQuantity);
         orderEntity.setOrderMenuEntities(orderMenuEntities);
@@ -82,6 +83,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Optional<OrderEntity> updateOrder(Long id, OrderStatus orderStatus) {
         OrderEntity order = orderRepository.findById(id).orElseThrow();
+        order.getInformation().setOrderStatus(orderStatus);
         orderRepository.save(order);
         return Optional.of(order);
     }

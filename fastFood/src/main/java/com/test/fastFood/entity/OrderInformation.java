@@ -24,5 +24,6 @@ public class OrderInformation {
     private Instant orderAt;
     @Enumerated(value = EnumType.STRING)
     private OrderStatus orderStatus;
+    private String address;
     private Instant delivery;
 }

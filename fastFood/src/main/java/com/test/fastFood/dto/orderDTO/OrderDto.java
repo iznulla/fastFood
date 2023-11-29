@@ -22,5 +22,6 @@ public class OrderDto {
     private Integer priceToPay;
     private Integer totalQuantity;
     private OrderStatus orderStatus;
+    private String address;
     private Instant delivery;
 }

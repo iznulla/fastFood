@@ -1,6 +1,7 @@
 package com.test.fastFood.service.secureService;
 
 import com.test.fastFood.entity.UserEntity;
+import com.test.fastFood.repository.UserRepository;
 import com.test.fastFood.security.UserPrincipal;
 import com.test.fastFood.service.userService.UserService;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +17,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService {
 
-    private final UserService userService;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user = userService.getUserByUsername(username).orElseThrow();
+        UserEntity user = userRepository.findByUsername(username).orElseThrow();
         return UserPrincipal.builder()
                 .userId(user.getUserId())
                 .username(user.getUsername())

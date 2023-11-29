@@ -6,6 +6,7 @@ import com.test.fastFood.utils.ConvertDtoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class MenuController {
     @Autowired private MenuService menuService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'GARCON')")
     @PostMapping
     public ResponseEntity<MenuDto> create(@RequestBody MenuDto menuDto) {
         menuService.create(menuDto);
@@ -33,11 +35,13 @@ public class MenuController {
         return new ResponseEntity<>(ConvertDtoUtils.MenuEntityToDto(menuService.findById(id).orElseThrow()), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'GARCON')")
     @PatchMapping("/{id}")
     public ResponseEntity<MenuDto> update(@PathVariable Long id, @RequestBody MenuDto menuDto) {
-        return new ResponseEntity<>(ConvertDtoUtils.MenuEntityToDto(menuService.update(id, menuDto).orElseThrow()), HttpStatus.OK);
+        return new ResponseEntity<>(ConvertDtoUtils.MenuEntityToDto(menuService.update(id, menuDto).orElseThrow()), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'GARCON')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         menuService.delete(id);

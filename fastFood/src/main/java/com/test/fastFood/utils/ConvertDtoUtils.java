@@ -37,6 +37,7 @@ public class ConvertDtoUtils {
                 .priceToPay(order.getTotalPrice())
                 .totalQuantity(order.getQuantity())
                 .orderStatus(OrderStatus.valueOf(order.getInformation().getOrderStatus().name()))
+                .address(order.getInformation().getAddress())
                 .delivery(order.getInformation().getDelivery())
                 .build();
     }

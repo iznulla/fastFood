@@ -1,6 +1,7 @@
 package com.test.fastFood.service.secureService;
 
 import com.test.fastFood.dto.loginDTO.LoginResponseDto;
+import com.test.fastFood.entity.UserEntity;
 import com.test.fastFood.security.JwtIssuer;
 import com.test.fastFood.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;

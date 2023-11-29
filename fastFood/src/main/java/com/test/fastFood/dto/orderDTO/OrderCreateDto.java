@@ -14,5 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderCreateDto {
+    private String address;
     private List<OrderBuilder> orderMenu;
 }

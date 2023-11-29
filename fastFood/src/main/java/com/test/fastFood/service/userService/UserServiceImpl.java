@@ -5,9 +5,9 @@ import com.test.fastFood.entity.Role;
 import com.test.fastFood.entity.UserEntity;
 import com.test.fastFood.entity.UserProfile;
 import com.test.fastFood.repository.UserRepository;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -21,12 +21,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository repository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Override
     public Optional<UserEntity> createUser(UserDto userDto) {
         UserEntity user = UserEntity.builder()
                 .username(userDto.getUsername())
-                .password(userDto.getPassword())
-                .role(Role.USER)
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .role(userDto.getRole())
                 .build();
         UserProfile profile = UserProfile.builder()
                 .user(user)
