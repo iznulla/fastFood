@@ -25,8 +25,8 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
-        userService.createUser(userDto);
-        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
+        Optional<UserEntity> user = userService.createUser(userDto);
+        return new ResponseEntity<>(ConvertDtoUtils.convertUserToDto(user.orElseThrow()), HttpStatus.CREATED);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'WAITER')")

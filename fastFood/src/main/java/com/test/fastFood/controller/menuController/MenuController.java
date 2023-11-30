@@ -1,10 +1,10 @@
 package com.test.fastFood.controller.menuController;
 
 import com.test.fastFood.dto.menuDTO.MenuDto;
+import com.test.fastFood.exception.NotFoundException;
 import com.test.fastFood.service.menuService.MenuService;
 import com.test.fastFood.utils.ConvertDtoUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,7 +23,7 @@ public class MenuController {
     @PostMapping
     public ResponseEntity<MenuDto> create(@RequestBody MenuDto menuDto) {
         menuService.create(menuDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(menuDto, HttpStatus.CREATED);
     }
     @GetMapping
     public ResponseEntity<List<MenuDto>> getAllMenu() {
@@ -34,7 +34,11 @@ public class MenuController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MenuDto> getMenuById(@PathVariable Long id) {
-        return new ResponseEntity<>(ConvertDtoUtils.MenuEntityToDto(menuService.findById(id).orElseThrow()), HttpStatus.OK);
+        return new ResponseEntity<>(ConvertDtoUtils.MenuEntityToDto(menuService.findById(id).orElseThrow(
+                () -> new NotFoundException(
+                        String.format("Menu with id %d not found", id)
+                )
+        )), HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'WAITER')")
