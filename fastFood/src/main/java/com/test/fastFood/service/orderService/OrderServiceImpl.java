@@ -10,7 +10,6 @@ import com.test.fastFood.utils.OrderUtils;
 import com.test.fastFood.utils.SecurityUtils;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +20,13 @@ import java.util.Optional;
 @Builder
 @Service
 public class OrderServiceImpl implements OrderService{
-
-    @Autowired private OrderRepository orderRepository;
-    @Autowired private UserServiceImpl userService;
-    @Autowired private MenuService menuService;
+    private final OrderRepository orderRepository;
+    private final UserServiceImpl userService;
+    private final MenuService menuService;
 
     @Override
     public Optional<OrderEntity> createOrder(OrderCreateDto orderCreateDto) {
-        Integer totalSum = 0;
+        int totalSum = 0;
         Integer totalQuantity = 0;
 
         UserEntity user = userService.getUserById(SecurityUtils.getCurrentUserId()).orElseThrow();

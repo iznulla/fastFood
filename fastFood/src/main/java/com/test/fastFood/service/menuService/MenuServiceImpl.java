@@ -5,6 +5,7 @@ import com.test.fastFood.entity.MenuEntity;
 import com.test.fastFood.repository.MenuRepository;
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,9 @@ import java.util.Optional;
 @Service
 @Data
 @Builder
+@RequiredArgsConstructor
 public class MenuServiceImpl implements MenuService{
-    @Autowired private MenuRepository repository;
+    private final MenuRepository repository;
 
     @Override
     public void create(MenuDto menuDto) {

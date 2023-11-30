@@ -1,10 +1,12 @@
 package com.test.fastFood.controller.userController;
 
+import com.test.fastFood.dto.orderDTO.OrderDto;
 import com.test.fastFood.dto.usetDTO.UserDto;
 import com.test.fastFood.entity.UserEntity;
+import com.test.fastFood.service.orderService.OrderService;
 import com.test.fastFood.service.userService.UserService;
 import com.test.fastFood.utils.ConvertDtoUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,8 +18,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
-    @Autowired private UserService userService;
+    private final UserService userService;
+    private final OrderService orderService;
 
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
@@ -25,7 +29,7 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_GARCON')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'WAITER')")
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return new ResponseEntity<>(userService.findAllUsers().stream()
@@ -50,4 +54,12 @@ public class UserController {
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }
+
+    @GetMapping("/{id}/orders")
+    public ResponseEntity<List<OrderDto>> getUserOrders(@PathVariable Long id){
+        return new ResponseEntity<>(orderService.getOrdersByUser(id)
+                .stream().map(ConvertDtoUtils::convertOrderToDto)
+                .collect(Collectors.toList()), HttpStatus.OK);
+    }
+
 }

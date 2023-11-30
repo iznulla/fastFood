@@ -18,9 +18,7 @@ import java.util.Optional;
 @Data
 @Builder
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepository repository;
-
+    private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -64,7 +62,7 @@ public class UserServiceImpl implements UserService {
     public Optional<UserEntity> updateUser(Long id, UserDto userDto) {
         UserEntity user = repository.findById(id).orElseThrow();
         user.setUsername(userDto.getUsername());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(user.getPassword());
         user.setRole(userDto.getRole());
         repository.save(user);
         return Optional.of(user);
