@@ -1,6 +1,7 @@
 package com.test.fastFood.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.test.fastFood.enums.OrderStatus;
 import lombok.*;
 
 import javax.persistence.*;

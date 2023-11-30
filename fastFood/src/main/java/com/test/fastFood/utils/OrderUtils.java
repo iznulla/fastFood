@@ -2,7 +2,7 @@ package com.test.fastFood.utils;
 
 import com.test.fastFood.entity.OrderEntity;
 import com.test.fastFood.entity.OrderInformation;
-import com.test.fastFood.entity.OrderStatus;
+import com.test.fastFood.enums.OrderStatus;
 
 import java.time.Duration;
 import java.time.Instant;

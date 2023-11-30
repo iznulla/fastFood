@@ -1,8 +1,6 @@
 package com.test.fastFood.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.test.fastFood.dto.menuDTO.MenuDto;
-import com.test.fastFood.dto.orderDTO.OrderMenuDto;
+import com.test.fastFood.dto.order.OrderMenuDto;
 import lombok.*;
 
 import javax.persistence.*;

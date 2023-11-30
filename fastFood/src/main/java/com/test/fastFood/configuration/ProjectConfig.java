@@ -1,7 +1,7 @@
 package com.test.fastFood.configuration;
 
 import com.test.fastFood.entity.MenuEntity;
-import com.test.fastFood.entity.Role;
+import com.test.fastFood.enums.Role;
 import com.test.fastFood.entity.UserEntity;
 import com.test.fastFood.entity.UserProfile;
 import com.test.fastFood.repository.MenuRepository;

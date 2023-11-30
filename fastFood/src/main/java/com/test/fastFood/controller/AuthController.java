@@ -1,12 +1,11 @@
 package com.test.fastFood.controller;
 
 
-import com.test.fastFood.dto.loginDTO.LoginResponseDto;
-import com.test.fastFood.dto.loginDTO.LoginUserDto;
-import com.test.fastFood.service.secureService.LoginManagerService;
+import com.test.fastFood.dto.login.LoginResponseDto;
+import com.test.fastFood.dto.login.LoginUserDto;
+import com.test.fastFood.service.secure.LoginManagerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

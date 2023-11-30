@@ -1,11 +1,11 @@
 package com.test.fastFood.utils;
 
-import com.test.fastFood.dto.menuDTO.MenuDto;
-import com.test.fastFood.dto.orderDTO.OrderDto;
-import com.test.fastFood.dto.usetDTO.UserDto;
+import com.test.fastFood.dto.menu.MenuDto;
+import com.test.fastFood.dto.order.OrderDto;
+import com.test.fastFood.dto.user.UserDto;
 import com.test.fastFood.entity.MenuEntity;
 import com.test.fastFood.entity.OrderEntity;
-import com.test.fastFood.entity.OrderStatus;
+import com.test.fastFood.enums.OrderStatus;
 import com.test.fastFood.entity.UserEntity;
 
 public class ConvertDtoUtils {

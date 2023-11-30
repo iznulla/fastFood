@@ -1,5 +1,6 @@
 package com.test.fastFood.entity;
 
+import com.test.fastFood.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;
