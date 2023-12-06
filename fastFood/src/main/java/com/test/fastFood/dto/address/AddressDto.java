@@ -1,6 +1,5 @@
 package com.test.fastFood.dto.address;
 
-import com.test.fastFood.entity.UserEntity;
 import lombok.*;
 
 @Builder

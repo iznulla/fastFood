@@ -1,6 +1,8 @@
-package com.test.fastFood.entity;
+package com.test.fastFood.entity.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.test.fastFood.entity.restaurant.RestaurantFilial;
+import com.test.fastFood.entity.address.Address;
 import com.test.fastFood.enums.OrderStatus;
 import com.test.fastFood.utils.DeliveryInfo;
 import lombok.*;

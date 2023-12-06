@@ -1,10 +1,9 @@
 package com.test.fastFood.service.filial;
 
-import com.test.fastFood.dto.address.AddressDto;
 import com.test.fastFood.dto.filial.RestaurantFilialDto;
-import com.test.fastFood.entity.Address;
-import com.test.fastFood.entity.RestaurantEntity;
-import com.test.fastFood.entity.RestaurantFilial;
+import com.test.fastFood.entity.address.Address;
+import com.test.fastFood.entity.restaurant.RestaurantEntity;
+import com.test.fastFood.entity.restaurant.RestaurantFilial;
 import com.test.fastFood.repository.RestaurantFilialRepository;
 import com.test.fastFood.repository.RestaurantRepository;
 import com.test.fastFood.service.address.AddressService;

@@ -1,6 +1,7 @@
-package com.test.fastFood.entity;
+package com.test.fastFood.entity.order;
 
 import com.test.fastFood.dto.order.OrderMenuDto;
+import com.test.fastFood.entity.restaurant.MenuEntity;
 import lombok.*;
 
 import javax.persistence.*;

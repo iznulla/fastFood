@@ -1,7 +1,7 @@
 package com.test.fastFood.service.menu;
 
 import com.test.fastFood.dto.menu.MenuDto;
-import com.test.fastFood.entity.MenuEntity;
+import com.test.fastFood.entity.restaurant.MenuEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

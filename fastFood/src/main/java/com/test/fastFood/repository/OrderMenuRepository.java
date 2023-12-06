@@ -1,6 +1,6 @@
 package com.test.fastFood.repository;
 
-import com.test.fastFood.entity.OrderMenuEntity;
+import com.test.fastFood.entity.order.OrderMenuEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

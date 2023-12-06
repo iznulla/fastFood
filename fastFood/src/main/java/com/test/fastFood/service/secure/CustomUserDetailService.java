@@ -1,6 +1,6 @@
 package com.test.fastFood.service.secure;
 
-import com.test.fastFood.entity.UserEntity;
+import com.test.fastFood.entity.user.UserEntity;
 import com.test.fastFood.repository.UserRepository;
 import com.test.fastFood.security.UserPrincipal;
 import lombok.RequiredArgsConstructor;

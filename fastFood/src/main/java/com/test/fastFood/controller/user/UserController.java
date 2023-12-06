@@ -2,7 +2,7 @@ package com.test.fastFood.controller.user;
 
 import com.test.fastFood.dto.order.OrderDto;
 import com.test.fastFood.dto.user.UserDto;
-import com.test.fastFood.entity.UserEntity;
+import com.test.fastFood.entity.user.UserEntity;
 import com.test.fastFood.service.order.OrderService;
 import com.test.fastFood.service.user.UserService;
 import com.test.fastFood.utils.ConvertDtoUtils;

@@ -1,4 +1,4 @@
-package com.test.fastFood.entity;
+package com.test.fastFood.entity.restaurant;
 
 import lombok.*;
 

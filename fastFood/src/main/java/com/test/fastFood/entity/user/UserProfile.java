@@ -1,6 +1,7 @@
-package com.test.fastFood.entity;
+package com.test.fastFood.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.test.fastFood.entity.address.Address;
 import lombok.*;
 
 import javax.persistence.*;

@@ -1,5 +1,6 @@
-package com.test.fastFood.entity;
+package com.test.fastFood.entity.user;
 
+import com.test.fastFood.entity.order.OrderEntity;
 import com.test.fastFood.enums.Role;
 import lombok.*;
 

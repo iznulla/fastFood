@@ -1,5 +1,7 @@
-package com.test.fastFood.entity;
+package com.test.fastFood.entity.restaurant;
 
+import com.test.fastFood.entity.address.Address;
+import com.test.fastFood.entity.order.OrderInformation;
 import lombok.*;
 
 import javax.persistence.*;

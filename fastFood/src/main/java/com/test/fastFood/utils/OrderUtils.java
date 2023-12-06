@@ -1,7 +1,13 @@
 package com.test.fastFood.utils;
 
 import com.test.fastFood.dto.order.OrderBuilder;
-import com.test.fastFood.entity.*;
+import com.test.fastFood.entity.address.Address;
+import com.test.fastFood.entity.order.OrderEntity;
+import com.test.fastFood.entity.order.OrderInformation;
+import com.test.fastFood.entity.order.OrderMenuEntity;
+import com.test.fastFood.entity.restaurant.MenuEntity;
+import com.test.fastFood.entity.restaurant.RestaurantEntity;
+import com.test.fastFood.entity.restaurant.RestaurantFilial;
 import com.test.fastFood.enums.OrderStatus;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,12 +1,11 @@
 package com.test.fastFood.service.menu;
 
 import com.test.fastFood.dto.menu.MenuDto;
-import com.test.fastFood.entity.MenuEntity;
-import com.test.fastFood.entity.RestaurantEntity;
+import com.test.fastFood.entity.restaurant.MenuEntity;
+import com.test.fastFood.entity.restaurant.RestaurantEntity;
 import com.test.fastFood.exception.NotFoundException;
 import com.test.fastFood.repository.MenuRepository;
 import com.test.fastFood.repository.RestaurantRepository;
-import com.test.fastFood.service.restaurant.RestaurantService;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

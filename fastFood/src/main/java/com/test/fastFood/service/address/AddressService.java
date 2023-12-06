@@ -1,7 +1,7 @@
 package com.test.fastFood.service.address;
 
 import com.test.fastFood.dto.address.AddressDto;
-import com.test.fastFood.entity.Address;
+import com.test.fastFood.entity.address.Address;
 
 import java.util.Optional;
 

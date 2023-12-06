@@ -1,7 +1,7 @@
 package com.test.fastFood.service.user;
 
 import com.test.fastFood.dto.user.UserDto;
-import com.test.fastFood.entity.UserEntity;
+import com.test.fastFood.entity.user.UserEntity;
 
 import java.util.List;
 import java.util.Optional;

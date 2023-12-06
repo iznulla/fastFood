@@ -1,7 +1,7 @@
 package com.test.fastFood.service.order;
 
 import com.test.fastFood.dto.order.OrderCreateDto;
-import com.test.fastFood.entity.OrderEntity;
+import com.test.fastFood.entity.order.OrderEntity;
 import com.test.fastFood.enums.OrderStatus;
 
 import java.util.List;

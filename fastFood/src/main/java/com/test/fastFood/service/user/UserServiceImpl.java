@@ -1,9 +1,9 @@
 package com.test.fastFood.service.user;
 
 import com.test.fastFood.dto.user.UserDto;
-import com.test.fastFood.entity.Address;
-import com.test.fastFood.entity.UserEntity;
-import com.test.fastFood.entity.UserProfile;
+import com.test.fastFood.entity.address.Address;
+import com.test.fastFood.entity.user.UserEntity;
+import com.test.fastFood.entity.user.UserProfile;
 import com.test.fastFood.exception.NotFoundException;
 import com.test.fastFood.repository.UserRepository;
 import com.test.fastFood.service.address.AddressService;

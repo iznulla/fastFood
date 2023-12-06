@@ -1,6 +1,6 @@
 package com.test.fastFood.repository;
 
-import com.test.fastFood.entity.CityEntity;
+import com.test.fastFood.entity.address.CityEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

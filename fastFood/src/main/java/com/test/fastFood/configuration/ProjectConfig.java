@@ -1,9 +1,7 @@
 package com.test.fastFood.configuration;
 
-import com.test.fastFood.entity.MenuEntity;
 import com.test.fastFood.enums.Role;
-import com.test.fastFood.entity.UserEntity;
-import com.test.fastFood.entity.UserProfile;
+import com.test.fastFood.entity.user.UserEntity;
 import com.test.fastFood.repository.MenuRepository;
 import com.test.fastFood.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.PostConstruct;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 

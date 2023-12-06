@@ -6,7 +6,12 @@ import com.test.fastFood.dto.menu.MenuDto;
 import com.test.fastFood.dto.order.OrderDto;
 import com.test.fastFood.dto.restaurant.RestaurantDto;
 import com.test.fastFood.dto.user.UserDto;
-import com.test.fastFood.entity.*;
+import com.test.fastFood.entity.address.Address;
+import com.test.fastFood.entity.order.OrderEntity;
+import com.test.fastFood.entity.restaurant.MenuEntity;
+import com.test.fastFood.entity.restaurant.RestaurantEntity;
+import com.test.fastFood.entity.restaurant.RestaurantFilial;
+import com.test.fastFood.entity.user.UserEntity;
 import com.test.fastFood.enums.OrderStatus;
 
 public class ConvertDtoUtils {

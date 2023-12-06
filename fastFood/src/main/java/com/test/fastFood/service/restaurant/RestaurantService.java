@@ -3,8 +3,6 @@ package com.test.fastFood.service.restaurant;
 import com.test.fastFood.dto.filial.RestaurantFilialDto;
 import com.test.fastFood.dto.menu.MenuDto;
 import com.test.fastFood.dto.restaurant.RestaurantDto;
-import com.test.fastFood.entity.RestaurantEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;

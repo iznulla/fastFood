@@ -1,9 +1,9 @@
 package com.test.fastFood.service.address;
 
 import com.test.fastFood.dto.address.AddressDto;
-import com.test.fastFood.entity.Address;
-import com.test.fastFood.entity.CityEntity;
-import com.test.fastFood.entity.CountryEntity;
+import com.test.fastFood.entity.address.Address;
+import com.test.fastFood.entity.address.CityEntity;
+import com.test.fastFood.entity.address.CountryEntity;
 import com.test.fastFood.repository.AddressRepository;
 import com.test.fastFood.repository.CityRepository;
 import com.test.fastFood.repository.CountryRepository;

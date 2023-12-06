@@ -44,11 +44,13 @@ insert into user_profile (name, surname, user_id, address_id) values ('John', 'D
 insert into user_profile (name, surname, user_id, address_id) values ('Bugi', 'Man', 4, 4);
 
 -- create menu
+-- Evos
 insert into menu (name, cooking_time, price, restaurant_id) values ('Burger Evos', 4, 45000, 2);
 insert into menu (name, cooking_time, price, restaurant_id) values ('Pizza Evos', 5, 30000, 2);
 insert into menu (name, cooking_time, price, restaurant_id) values ('Pasta Evos', 6, 55000, 2);
 insert into menu (name, cooking_time, price, restaurant_id) values ('Fish Evos', 7, 87000, 2);
 
+-- Belissimo
 insert into menu (name, cooking_time, price, restaurant_id) values ('Burger Belissimo', 4, 45000, 1);
 insert into menu (name, cooking_time, price, restaurant_id) values ('Pizza Belissimo', 5, 30000, 1);
 insert into menu (name, cooking_time, price, restaurant_id) values ('Pasta Belissimo', 6, 55000, 1);

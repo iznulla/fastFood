@@ -1,10 +1,10 @@
-package com.test.fastFood.entity;
+package com.test.fastFood.entity.order;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.test.fastFood.entity.user.UserEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
