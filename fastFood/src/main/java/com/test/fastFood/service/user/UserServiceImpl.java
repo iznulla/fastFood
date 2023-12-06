@@ -1,10 +1,12 @@
 package com.test.fastFood.service.user;
 
 import com.test.fastFood.dto.user.UserDto;
+import com.test.fastFood.entity.Address;
 import com.test.fastFood.entity.UserEntity;
 import com.test.fastFood.entity.UserProfile;
 import com.test.fastFood.exception.NotFoundException;
 import com.test.fastFood.repository.UserRepository;
+import com.test.fastFood.service.address.AddressService;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +23,7 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
+    private final AddressService addressService;
 
     @Override
     public Optional<UserEntity> createUser(UserDto userDto) {
@@ -29,15 +32,16 @@ public class UserServiceImpl implements UserService {
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .role(userDto.getRole())
                 .build();
+        Address address = addressService.createAddress(userDto.getAddressDto()).orElseThrow();
         UserProfile profile = UserProfile.builder()
                 .user(user)
                 .name(userDto.getName())
                 .surname(userDto.getSurname())
-                .address(userDto.getAddress())
                 .createAt(Instant.now()).build();
+        profile.setAddress(address);
         user.setUserProfile(profile);
         repository.save(user);
-        log.warn("Created user by name {}", userDto.getName());
+        log.debug("Created user by name {}", userDto.getName());
         return Optional.of(user);
     }
 
@@ -68,8 +72,16 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(user.getPassword());
         user.setRole(userDto.getRole());
+        Address address = addressService.createAddress(userDto.getAddressDto()).orElseThrow();
+        UserProfile profile = UserProfile.builder()
+                .user(user)
+                .name(userDto.getName())
+                .surname(userDto.getSurname())
+                .createAt(Instant.now()).build();
+        profile.setAddress(address);
+        user.setUserProfile(profile);
         repository.save(user);
-        log.warn("Updated user by id {}", id);
+        log.debug("Updated user by id {}", id);
         return Optional.of(user);
     }
 
@@ -78,7 +90,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = repository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format("User with id %s not found", id)
         ));
-        log.warn("deleted user by id {}", id);
+        log.debug("deleted user by id {}", id);
         repository.delete(user);
     }
 

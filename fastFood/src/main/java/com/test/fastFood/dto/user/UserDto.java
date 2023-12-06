@@ -1,5 +1,6 @@
 package com.test.fastFood.dto.user;
 
+import com.test.fastFood.dto.address.AddressDto;
 import com.test.fastFood.enums.Role;
 import lombok.*;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,7 @@ public class UserDto {
     private Role role = Role.USER;
     private String name;
     private String surname;
-    private String address;
+    private AddressDto addressDto;
     private Integer ordersCount = 0;
 
 }

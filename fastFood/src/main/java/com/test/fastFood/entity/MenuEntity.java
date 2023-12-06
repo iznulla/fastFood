@@ -24,18 +24,16 @@ public class MenuEntity {
     private Instant createAt;
     private Integer cookingTime;
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
+    private RestaurantEntity restaurant;
 
     @Builder.Default
     @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<OrderMenuEntity> orderMenuEntities = new ArrayList<>();
 
-    @Override
-    public String toString() {
-        return "MenuEntity{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", createAt=" + createAt +
-                '}';
+    public void setRestaurant(RestaurantEntity restaurant) {
+        this.restaurant = restaurant;
+        restaurant.getMenus().add(this);
     }
 }

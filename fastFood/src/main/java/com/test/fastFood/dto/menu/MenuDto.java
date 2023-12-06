@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MenuDto {
+    private Long restaurantId;
     private String name;
     private Integer price;
     private Integer cookingTime;

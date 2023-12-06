@@ -1,5 +1,6 @@
 package com.test.fastFood.dto.order;
 
+import com.test.fastFood.dto.address.AddressDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderCreateDto {
-    private String address;
+    private AddressDto address;
     private List<OrderBuilder> orderMenu;
 }

@@ -2,8 +2,11 @@ package com.test.fastFood.service.menu;
 
 import com.test.fastFood.dto.menu.MenuDto;
 import com.test.fastFood.entity.MenuEntity;
+import com.test.fastFood.entity.RestaurantEntity;
 import com.test.fastFood.exception.NotFoundException;
 import com.test.fastFood.repository.MenuRepository;
+import com.test.fastFood.repository.RestaurantRepository;
+import com.test.fastFood.service.restaurant.RestaurantService;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -21,16 +24,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MenuServiceImpl implements MenuService{
     private final MenuRepository repository;
+    private final RestaurantRepository restaurantRepository;
 
     @Override
     public void create(MenuDto menuDto) {
+        RestaurantEntity restaurant = restaurantRepository.findById(menuDto.getRestaurantId()).orElseThrow();
         MenuEntity menu = MenuEntity.builder()
                 .name(menuDto.getName())
                 .price(menuDto.getPrice())
                 .createAt(Instant.now())
                 .cookingTime(menuDto.getCookingTime())
                 .build();
-        log.warn("Created menu by name {}", menuDto.getName());
+        menu.setRestaurant(restaurant);
+        log.debug("Created menu by name {}", menuDto.getName());
         repository.save(menu);
     }
 

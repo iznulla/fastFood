@@ -6,16 +6,22 @@ import com.test.fastFood.entity.*;
 import com.test.fastFood.enums.OrderStatus;
 import com.test.fastFood.exception.NotFoundException;
 import com.test.fastFood.repository.OrderRepository;
+import com.test.fastFood.repository.RestaurantRepository;
+import com.test.fastFood.service.address.AddressService;
 import com.test.fastFood.service.menu.MenuService;
 import com.test.fastFood.service.user.UserServiceImpl;
+import com.test.fastFood.utils.DeliveryInfo;
 import com.test.fastFood.utils.OrderUtils;
 import com.test.fastFood.utils.SecurityUtils;
 import lombok.Builder;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -26,45 +32,52 @@ public class OrderServiceImpl implements OrderService{
     private final OrderRepository orderRepository;
     private final UserServiceImpl userService;
     private final MenuService menuService;
+    private final RestaurantRepository restaurantRepository;
+    private final AddressService addressService;
 
     @Override
     public Optional<OrderEntity> createOrder(OrderCreateDto orderCreateDto) {
-        int totalSum = 0;
-        Integer totalQuantity = 0;
-
+        OrderUtils orderUtils = new OrderUtils();
         UserEntity user = userService.getUserById(SecurityUtils.getCurrentUserId()).orElseThrow(
                 () -> new NotFoundException(
                         String.format("User with id %d not found", SecurityUtils.getCurrentUserId())
                 )
         );
-        OrderEntity orderEntity = new OrderEntity();
 
+        Address address = addressService.createAddress(orderCreateDto.getAddress()).orElseThrow();
+
+        OrderEntity orderEntity = new OrderEntity();
         orderEntity.setUser(user);
 
         List<OrderMenuEntity> orderMenuEntities = new ArrayList<>();
+        Long restaurantId = null;
 
         for (OrderBuilder orderBuilder : orderCreateDto.getOrderMenu()) {
             OrderMenuEntity orderMenuEntity = new OrderMenuEntity();
             orderMenuEntity.setOrder(orderEntity);
+
             MenuEntity menu = menuService.findById(orderBuilder.getMenuId()).orElseThrow(
                     () -> new NotFoundException(
                             String.format("Menu with id %d not found", orderBuilder.getMenuId())
                     )
             );
-            orderMenuEntity.setMenu(menu);
-            orderMenuEntity.setQuantity(orderBuilder.getQuantity());
-            totalSum += menu.getPrice() * orderBuilder.getQuantity();
-            totalQuantity += orderBuilder.getQuantity();
-            orderMenuEntities.add(orderMenuEntity);
+            restaurantId = menu.getRestaurant().getId();
+            orderUtils.addingMenuInOrders(orderMenuEntity, orderBuilder, menu, orderMenuEntities);
         }
-        OrderInformation orderInformation = OrderUtils.getOrderInformation(
-                orderEntity,
-                totalQuantity,
-                3.0
-        );
-        orderInformation.setAddress(orderCreateDto.getAddress());
-        orderEntity.setTotalPrice(totalSum);
-        orderEntity.setQuantity(totalQuantity);
+
+        Long finalRestaurantId = restaurantId;
+        RestaurantEntity restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFoundException(
+                String.format("Restaurant with id %d not found", finalRestaurantId)
+        ));
+
+        // order information
+        OrderInformation orderInformation = new OrderInformation();
+        orderInformation.setAddress(address);
+        orderUtils.createAndFillOrderInformation(orderEntity, orderInformation, restaurant);
+
+        // fill order entity
+        orderEntity.setTotalPrice(orderUtils.getTotalSum());
+        orderEntity.setQuantity(orderUtils.getTotalQuantity());
         orderEntity.setOrderMenuEntities(orderMenuEntities);
         orderEntity.setInformation(orderInformation);
 

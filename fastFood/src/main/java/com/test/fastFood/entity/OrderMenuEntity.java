@@ -7,8 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Builder
-//@Getter
-//@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "Orders_Menu_Items")
