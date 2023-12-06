@@ -22,11 +22,7 @@ public class RestaurantEntity {
 
     @Builder.Default
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<Address> address = new ArrayList<>();
-
-    @Builder.Default
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<OrderInformation> orders = new ArrayList<>();
+    private List<RestaurantFilial> restaurantFilial = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

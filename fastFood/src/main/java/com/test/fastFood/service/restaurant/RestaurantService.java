@@ -1,5 +1,6 @@
 package com.test.fastFood.service.restaurant;
 
+import com.test.fastFood.dto.filial.RestaurantFilialDto;
 import com.test.fastFood.dto.menu.MenuDto;
 import com.test.fastFood.dto.restaurant.RestaurantDto;
 import com.test.fastFood.entity.RestaurantEntity;
@@ -15,4 +16,5 @@ public interface RestaurantService {
     List<RestaurantDto> getAllRestaurant();
     void deleteRestaurantById(Long id);
     List<MenuDto> getMenusByRestaurantId(Long id);
+    List<RestaurantFilialDto> getFilialsByRestaurant(Long id);
 }

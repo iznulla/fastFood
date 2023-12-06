@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AddressService {
     Optional<Address> createAddress(AddressDto addressDto);
-    Optional<AddressDto> updateAddress(Long id, AddressDto addressDto);
+    Optional<Address> updateAddress(Long id, AddressDto addressDto);
     Optional<AddressDto> getAddressById(Long id);
     void deleteAddressById(Long id);
 }

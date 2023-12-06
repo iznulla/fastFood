@@ -33,22 +33,22 @@ public class OrderInformation {
     private Instant deliveryTime;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
-    private RestaurantEntity restaurant;
+    @JoinColumn(name = "restaurantFilial_id", referencedColumnName = "id")
+    private RestaurantFilial restaurantFilial;
 
     @Transient
     private DeliveryInfo deliveryInfo;
-    public void setRestaurant(RestaurantEntity restaurant) {
-        this.restaurant = restaurant;
-        restaurant.getOrders().add(this);
+    public void setRestaurantFilial(RestaurantFilial restaurantFilial) {
+        this.restaurantFilial = restaurantFilial;
+        restaurantFilial.getOrders().add(this);
     }
 
-    public String getAddressToString() {
+    public String getRestaurantToString() {
         return String.format(
                 "%s, %s, %s",
-                address.getStreet(),
-                address.getCity().getName(),
-                address.getCountry().getName()
+                restaurantFilial.getName(),
+                restaurantFilial.getAddress().getCity().getName(),
+                restaurantFilial.getAddress().getCountry().getName()
         );
     }
 }

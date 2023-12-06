@@ -32,15 +32,9 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private OrderInformation orderInformation;
 
-    @ManyToOne
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id")
-    private RestaurantEntity restaurant;
+    @OneToOne(mappedBy = "address")
+    private RestaurantFilial restaurantFilial;
 
     private Double longitude;
     private Double latitude;
-
-    public void setRestaurant(RestaurantEntity restaurant) {
-        this.restaurant = restaurant;
-        restaurant.getAddress().add(this);
-    }
 }

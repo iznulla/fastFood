@@ -26,8 +26,6 @@ public class OrderDto {
     private Integer totalQuantity;
     private Instant createdAt;
     private OrderStatus orderStatus;
-    private String address;
     private Instant delivery;
-    private String restaurantName;
-    private String restaurantAddress;
+    private String restaurant;
 }

@@ -1,8 +1,10 @@
 package com.test.fastFood.controller.restaurant;
 
+import com.test.fastFood.dto.filial.RestaurantFilialDto;
 import com.test.fastFood.dto.menu.MenuDto;
 import com.test.fastFood.dto.restaurant.RestaurantDto;
 import com.test.fastFood.service.restaurant.RestaurantService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,11 @@ public class RestaurantController {
     @GetMapping("/{id}/menu")
     public ResponseEntity<List<MenuDto>> getRestaurantMenu(@PathVariable Long id) {
         return new ResponseEntity<>(restaurantService.getMenusByRestaurantId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/filial")
+    public ResponseEntity<List<RestaurantFilialDto>> getRestaurantFilial(@PathVariable Long id) {
+        return new ResponseEntity<>(restaurantService.getFilialsByRestaurant(id), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")

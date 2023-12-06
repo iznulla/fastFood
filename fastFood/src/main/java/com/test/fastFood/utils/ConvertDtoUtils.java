@@ -1,6 +1,7 @@
 package com.test.fastFood.utils;
 
 import com.test.fastFood.dto.address.AddressDto;
+import com.test.fastFood.dto.filial.RestaurantFilialDto;
 import com.test.fastFood.dto.menu.MenuDto;
 import com.test.fastFood.dto.order.OrderDto;
 import com.test.fastFood.dto.restaurant.RestaurantDto;
@@ -12,6 +13,7 @@ public class ConvertDtoUtils {
 
     public static MenuDto MenuEntityToDto(MenuEntity menu) {
         return MenuDto.builder()
+                .restaurantId(menu.getRestaurant().getId())
                 .name(menu.getName())
                 .price(menu.getPrice())
                 .cookingTime(menu.getCookingTime())
@@ -37,10 +39,8 @@ public class ConvertDtoUtils {
                 .totalQuantity(order.getQuantity())
                 .orderStatus(OrderStatus.valueOf(order.getInformation().getOrderStatus().name()))
                 .createdAt(order.getInformation().getOrderAt())
-                .address(order.getInformation().getAddressToString())
                 .delivery(order.getInformation().getDeliveryTime())
-                .restaurantName(order.getInformation().getRestaurant().getName())
-                .restaurantAddress(order.getInformation().getDeliveryInfo().getAddress().getStreet())
+                .restaurant(order.getInformation().getRestaurantToString())
                 .build();
     }
 
@@ -49,12 +49,22 @@ public class ConvertDtoUtils {
                 .city(address.getCity().getName())
                 .country(address.getCountry().getName())
                 .street(address.getStreet())
+                .longitude(address.getLongitude())
+                .latitude(address.getLatitude())
                 .build();
     }
 
     public static RestaurantDto convertRestaurantToDto(RestaurantEntity restaurant) {
         return RestaurantDto.builder()
                 .name(restaurant.getName())
+                .build();
+    }
+
+    public static RestaurantFilialDto convertRestaurantFilialToDto(RestaurantFilial restaurantFilial) {
+        return RestaurantFilialDto.builder()
+                .restaurantId(restaurantFilial.getRestaurant().getId())
+                .name(restaurantFilial.getName())
+                .address(ConvertDtoUtils.convertAddressToDto(restaurantFilial.getAddress()))
                 .build();
     }
 }

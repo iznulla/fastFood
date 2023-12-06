@@ -39,7 +39,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Optional<AddressDto> updateAddress(Long id, AddressDto addressDto) {
+    public Optional<Address> updateAddress(Long id, AddressDto addressDto) {
         Address address = addressRepository.findById(id).orElseThrow();
 
         CountryEntity country = countryRepository.findByName(addressDto.getCountry()).orElseThrow();
@@ -51,7 +51,7 @@ public class AddressServiceImpl implements AddressService {
 
         addressRepository.save(address);
 
-        return Optional.of(ConvertDtoUtils.convertAddressToDto(address));
+        return Optional.of(address);
     }
 
     @Override

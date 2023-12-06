@@ -45,27 +45,27 @@ public class OrderUtils {
         orderInformation.setOrderAt(Instant.now());
         orderInformation.setDeliveryTime(getOrderInformation(cookTime, totalQuantity, deliveryInfo.getDistance()));
         orderInformation.setDeliveryInfo(deliveryInfo);
-        orderInformation.setOrderStatus(OrderStatus.PROCESSING);
-        orderInformation.setRestaurant(restaurant);
+        orderInformation.setOrderStatus(OrderStatus.NEW);
+        orderInformation.setRestaurantFilial(deliveryInfo.getRestaurantFilial());
     }
 
     public static DeliveryInfo getClosestAddress(RestaurantEntity restaurant, OrderInformation orderInformation) {
-        List<Address> restaurantAddress = restaurant.getAddress();
+        List<RestaurantFilial> restaurantAddress = restaurant.getRestaurantFilial();
         Address orderAddress = orderInformation.getAddress();
-        Address resAddress = restaurantAddress.get(0);
+        RestaurantFilial resFilial = restaurantAddress.get(0);
         double distance = Point2D.distance(orderAddress.getLongitude(), orderAddress.getLatitude(),
-                resAddress.getLongitude(), resAddress.getLatitude());
+                resFilial.getAddress().getLongitude(), resFilial.getAddress().getLatitude());
         double minDistance = distance;
-        for (Address a : restaurantAddress) {
+        for (RestaurantFilial r : restaurantAddress) {
             distance = Point2D.distance(orderAddress.getLongitude(),
-                    orderAddress.getLatitude(), a.getLongitude(), a.getLatitude());
+                    orderAddress.getLatitude(), r.getAddress().getLongitude(), r.getAddress().getLatitude());
             if (distance < minDistance) {
                 minDistance = distance;
-                resAddress = a;
+                resFilial = r;
             }
         }
         return DeliveryInfo.builder()
-                .address(resAddress)
+                .restaurantFilial(resFilial)
                 .distance(minDistance)
                 .build();
     }
