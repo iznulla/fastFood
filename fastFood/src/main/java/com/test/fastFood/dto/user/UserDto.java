@@ -17,7 +17,7 @@ public class UserDto {
     private Role role = Role.USER;
     private String name;
     private String surname;
-    private AddressDto addressDto;
+    private AddressDto address;
     private Integer ordersCount = 0;
 
 }

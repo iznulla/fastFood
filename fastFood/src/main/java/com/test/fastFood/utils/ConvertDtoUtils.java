@@ -32,6 +32,7 @@ public class ConvertDtoUtils {
                 .role(user.getRole())
                 .name(user.getUserProfile().getName())
                 .surname(user.getUserProfile().getSurname())
+                .address(convertAddressToDto(user.getUserProfile().getAddress()))
                 .ordersCount(user.getOrders().size())
                 .build();
     }

@@ -3,6 +3,7 @@ package com.test.fastFood.controller;
 
 import com.test.fastFood.dto.login.LoginResponseDto;
 import com.test.fastFood.dto.login.LoginUserDto;
+import com.test.fastFood.service.email.EmailServiceImpl;
 import com.test.fastFood.service.secure.LoginManagerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final LoginManagerService loginManagerService;
+
 
     @PostMapping
     public LoginResponseDto login(@RequestBody LoginUserDto loginUserDto) {

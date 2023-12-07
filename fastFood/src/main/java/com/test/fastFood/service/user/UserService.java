@@ -12,5 +12,6 @@ public interface UserService {
     Optional<UserEntity> getUserByUsername(String username);
     Optional<UserEntity> getUserById(Long id);
     Optional<UserEntity> updateUser(Long id, UserDto userDto);
-    public void deleteUser(Long id);
+    void deleteUser(Long id);
+    boolean verification(Long id, String code);
 }

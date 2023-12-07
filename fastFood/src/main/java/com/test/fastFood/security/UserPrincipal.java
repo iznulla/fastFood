@@ -18,6 +18,7 @@ public class UserPrincipal implements UserDetails {
     private final Long userId;
     private final String username;
     private final String password;
+    private final boolean isActive;
     private final Collection<? extends GrantedAuthority> authorities;
 
     @Override
@@ -52,6 +53,6 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isActive;
     }
 }

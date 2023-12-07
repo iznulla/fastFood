@@ -7,6 +7,8 @@ import com.test.fastFood.entity.user.UserProfile;
 import com.test.fastFood.exception.NotFoundException;
 import com.test.fastFood.repository.UserRepository;
 import com.test.fastFood.service.address.AddressService;
+import com.test.fastFood.service.email.EmailServiceImpl;
+import com.test.fastFood.service.secure.EmailVerificationService;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final AddressService addressService;
+    private final EmailServiceImpl emailService;
+    private final EmailVerificationService emailVerificationService;
 
     @Override
     public Optional<UserEntity> createUser(UserDto userDto) {
@@ -32,7 +36,7 @@ public class UserServiceImpl implements UserService {
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .role(userDto.getRole())
                 .build();
-        Address address = addressService.createAddress(userDto.getAddressDto()).orElseThrow();
+        Address address = addressService.createAddress(userDto.getAddress()).orElseThrow();
         UserProfile profile = UserProfile.builder()
                 .user(user)
                 .name(userDto.getName())
@@ -41,6 +45,7 @@ public class UserServiceImpl implements UserService {
         profile.setAddress(address);
         user.setUserProfile(profile);
         repository.save(user);
+        emailService.sendSimpleMessage(userDto.getUsername(), "Verify Code", emailVerificationService.generateCode());
         log.debug("Created user by name {}", userDto.getName());
         return Optional.of(user);
     }
@@ -72,7 +77,7 @@ public class UserServiceImpl implements UserService {
         user.setUsername(userDto.getUsername());
         user.setPassword(user.getPassword());
         user.setRole(userDto.getRole());
-        Address address = addressService.createAddress(userDto.getAddressDto()).orElseThrow();
+        Address address = addressService.createAddress(userDto.getAddress()).orElseThrow();
         UserProfile profile = UserProfile.builder()
                 .user(user)
                 .name(userDto.getName())
@@ -94,4 +99,24 @@ public class UserServiceImpl implements UserService {
         repository.delete(user);
     }
 
+    @Override
+    public boolean verification(Long id, String code) {
+        UserEntity user = repository.findById(id).orElseThrow(() -> new NotFoundException(
+                String.format("User with id %s not found", id)
+        ));
+        if (user.isActive()) {
+            return false;
+        }
+        Instant now = Instant.now();
+        if (!now.isBefore(emailVerificationService.getExpiredDate())) {
+            return false;
+        }
+        if (!code.equals(emailVerificationService.getVerifyCode())) {
+            return false;
+        }
+        user.setActive(true);
+        repository.save(user);
+        log.debug("User verified by id {}", id);
+        return true;
+    }
 }

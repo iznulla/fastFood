@@ -24,9 +24,12 @@ public class UserEntity {
 
     @Column(unique = true)
     private String username;
+    @Column(name = "password")
     private String password;
     @Enumerated(value = EnumType.STRING)
     private Role role;
+    @Column(columnDefinition = "boolean default false")
+    private boolean isActive = false;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
     private UserProfile userProfile;
