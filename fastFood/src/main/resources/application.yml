@@ -4,7 +4,6 @@ spring:
 
   datasource:
     url: ${URL}
-    driverClassName: ${DRIVER_CLASS_NAME}
     username: ${USERNAME}
     password: ${PASSWORD}
 

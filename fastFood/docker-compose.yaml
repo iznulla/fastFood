@@ -1,24 +1,6 @@
 version: '3.5'
 
-#services:
-#  fasfood:
-#    container_name: fastfood
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    restart: always
-
 services:
-  fastfood:
-    container_name: fastfood
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - postgres
-    ports:
-      - "8080:8080"
-
   postgres:
     container_name: postgres_container
     image: postgres
@@ -33,7 +15,6 @@ services:
     networks:
       - postgres
     restart: unless-stopped
-
   pgadmin:
     container_name: pgadmin_container
     image: dpage/pgadmin4
@@ -43,9 +24,22 @@ services:
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
       - pgadmin:/var/lib/pgadmin
-
     ports:
       - 90:80
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  fastfood:
+    container_name: fastfood
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - pgadmin
+      - postgres
+    ports:
+      - "8080:8080"
     networks:
       - postgres
     restart: unless-stopped
