@@ -53,8 +53,8 @@ public class ProjectConfig {
 
 
     // environment
-    // registration from email
     // jar in docker compose
+    // registration from email
     // country, region table
     // multi cafe
     // delivery from nearest cafe

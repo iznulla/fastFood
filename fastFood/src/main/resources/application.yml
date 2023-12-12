@@ -1,3 +1,37 @@
+spring:
+  liquibase:
+    enabled: false
+
+  datasource:
+    url: ${URL}
+    driverClassName: ${DRIVER_CLASS_NAME}
+    username: ${USERNAME}
+    password: ${PASSWORD}
+
+  jpa:
+    database-platform: ${DATABASE_PLATFORM}
+    hibernate:
+      ddl-auto: ${DDL_AUTO}
+    defer-datasource-initialization: ${DATASOURCE_INITIALIZATION}
+
+  sql:
+    init:
+      mode: ${INIT_MODE}
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: ${PROPERTIES_MAIL_SMTP_AUTH}
+          starttls:
+            enable: ${PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE}
+
+
+
 security:
   jwt:
-    secret-key: veryvery
+    secret-key: ${JWT_SECRET_KEY}

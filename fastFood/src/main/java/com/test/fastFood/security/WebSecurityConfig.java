@@ -38,7 +38,7 @@ public class WebSecurityConfig {
                 .authorizeRequests(registry ->
                         registry
                                 .antMatchers("/login").permitAll()
-//                                .antMatchers("/users/**").permitAll()
+                                .antMatchers("/users/*/verify").permitAll()
 //                                .antMatchers("/users").permitAll()
 //                                .antMatchers(HttpMethod.DELETE,"/users/**").hasRole("ADMIN")
                                 .antMatchers(HttpMethod.POST,"/users").permitAll()

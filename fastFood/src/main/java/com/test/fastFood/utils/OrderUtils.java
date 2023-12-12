@@ -21,10 +21,10 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public class OrderUtils {
-
     int totalSum;
     int totalQuantity;
     int cookTime;
+
     public void addingMenuInOrders(OrderMenuEntity orderMenuEntity, OrderBuilder orderBuilder, MenuEntity menu, List<OrderMenuEntity> orderMenuEntities) {
         orderMenuEntity.setMenu(menu);
         orderMenuEntity.setQuantity(orderBuilder.getQuantity());
@@ -40,8 +40,8 @@ public class OrderUtils {
     }
 
     private static int timeCalculate(Integer time, Integer quantity, Double distance) {
-        int cookingTime =  (time * 60) / quantity ;
-        int deliveryTime = (int) (distance * 500)  * (3 * 60);
+        int cookingTime = (time * 60) / quantity;
+        int deliveryTime = (int) (distance * 500) * (3 * 60);
         return deliveryTime + cookingTime;
     }
 
