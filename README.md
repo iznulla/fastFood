@@ -33,12 +33,18 @@ Spring Boot приложение будет доступно по адресу *
 
 ```json
 {
-    "username" : "kolo",
+    "username" : "iznullaaskarov@gmail.com",
     "password" : "123",
     "role" : "USER",
     "name" : "Carlos",
     "surname" : "Sainz",
-    "address" : "Spain, Qattaqirgon"
+    "address" : {
+        "street" : "MEGA",
+        "country" : "Uzbekistan",
+        "longitude" : 41.37011004662482,
+        "latitude" : 69.29047371707807,
+        "city" : "Tashkent"
+    }
 }
 ```
 
@@ -51,9 +57,11 @@ Spring Boot приложение будет доступно по адресу *
 
 ```json
 {
-    "name" : "Chuchvara",
-    "price" : 22000,
-    "cookingTime" : 3
+    "restaurantId" : 3,
+    "name" : "KFC Burger",
+    "price" : 34000,
+    "cookingTime" : 6
+
 }
 ```
 
@@ -66,7 +74,13 @@ Spring Boot приложение будет доступно по адресу *
 
 ```json
 {
-    "address" : "Buyuk Ipak Yuli",
+    "address" : {
+        "street" : "MEGA",
+        "country" : "Uzbekistan",
+        "longitude" : 41.37011004662482,
+        "latitude" : 69.29047371707807,
+        "city" : "Tashkent"
+    },
     "orderMenu" : 
     [
         {
@@ -88,5 +102,24 @@ Spring Boot приложение будет доступно по адресу *
 ```json
 {
     "orderStatus" : "SHIPPED"
+}
+```
+## FILIAL CRUD
+
+- POST-GET /filial - create filial, get all filial
+- PATCH, DELETE, GET /filial/{id} - update-delete-get filial
+
+### Create-Update filial JSON example
+```json
+{
+    "restaurantId" : 3,
+    "name" : "KFC Fayz",
+    "address" : {
+        "street" : "Fayz",
+        "country" : "Uzbekistan",
+        "longitude" : 41.32776171557638,
+        "latitude" : 69.33060764607195,
+        "city" : "Tashkent"
+    }
 }
 ```
