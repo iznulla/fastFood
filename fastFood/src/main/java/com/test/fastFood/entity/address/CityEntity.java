@@ -25,4 +25,9 @@ public class CityEntity {
 
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Address> addresses;
+
+    public void setCountry(CountryEntity country) {
+        this.country = country;
+        country.getCities().add(this);
+    }
 }

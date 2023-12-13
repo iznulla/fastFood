@@ -4,6 +4,7 @@ import com.test.fastFood.dto.filial.RestaurantFilialDto;
 import com.test.fastFood.entity.address.Address;
 import com.test.fastFood.entity.restaurant.RestaurantEntity;
 import com.test.fastFood.entity.restaurant.RestaurantFilial;
+import com.test.fastFood.exception.NotFoundException;
 import com.test.fastFood.repository.RestaurantFilialRepository;
 import com.test.fastFood.repository.RestaurantRepository;
 import com.test.fastFood.service.address.AddressService;
@@ -43,7 +44,8 @@ public class RestaurantFilialServiceImpl implements RestaurantFilialService {
                         "RestaurantFilial by id: %d not found", id
                 )));
         Address address = addressService.updateAddress(restaurantFilial.getAddress().getId(),
-                restaurantfilialDto.getAddress()).orElseThrow();
+                restaurantfilialDto.getAddress()).orElseThrow(() ->
+                new NotFoundException("Not found address"));
         restaurantFilial.setName(restaurantfilialDto.getName());
         restaurantFilial.setAddress(address);
         return Optional.of(ConvertDtoUtils.convertRestaurantFilialToDto(restaurantFilial));

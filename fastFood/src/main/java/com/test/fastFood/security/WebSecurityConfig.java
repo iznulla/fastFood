@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -16,6 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.server.authentication.logout.DelegatingServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.SecurityContextServerLogoutHandler;
+import org.springframework.security.web.server.authentication.logout.WebSessionServerLogoutHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -27,6 +32,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain applicationSecurity(HttpSecurity http) throws Exception {
+
         http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         http
                 .cors().disable()
@@ -39,11 +45,9 @@ public class WebSecurityConfig {
                         registry
                                 .antMatchers("/login").permitAll()
                                 .antMatchers("/users/*/verify").permitAll()
-//                                .antMatchers("/users").permitAll()
-//                                .antMatchers(HttpMethod.DELETE,"/users/**").hasRole("ADMIN")
                                 .antMatchers(HttpMethod.POST,"/users").permitAll()
-//                                .antMatchers(HttpMethod.PATCH,"/users/**").hasRole("ADMIN")
                                 .anyRequest().authenticated());
+
         return http.build();
     }
 

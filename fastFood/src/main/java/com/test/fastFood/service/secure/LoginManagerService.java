@@ -28,7 +28,6 @@ public class LoginManagerService {
         var principal = (UserPrincipal) authentication.getPrincipal();
         var roles = principal.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-//        UserEntity user = userService.getUserByUsername(username).orElseThrow();
         var token = jwtIssuer.issue(principal.getUserId(), principal.getUsername(), roles);
         return LoginResponseDto.builder().accessToken(token).build();
     }

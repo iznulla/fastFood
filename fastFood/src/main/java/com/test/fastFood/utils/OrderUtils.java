@@ -41,7 +41,7 @@ public class OrderUtils {
 
     private static int timeCalculate(Integer time, Integer quantity, Double distance) {
         int cookingTime = (time * 60) / quantity;
-        int deliveryTime = (int) (distance * 500) * (3 * 60);
+        int deliveryTime = (int) (distance * 200) * (3 * 60);
         return deliveryTime + cookingTime;
     }
 

@@ -27,7 +27,7 @@ public class OrderController {
                 HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'WAITER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping
     public ResponseEntity<List<OrderDto>> getAllOrders() {
         return new ResponseEntity<>(orderService.getAllOrders()
@@ -35,20 +35,20 @@ public class OrderController {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'WAITER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping("/{id}")
     public ResponseEntity<OrderDto> getOrdersById(@PathVariable Long id) {
         return new ResponseEntity<>(ConvertDtoUtils.convertOrderToDto(orderService.getOrderById(id).orElseThrow()), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'WAITER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @PatchMapping("/{id}")
     public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id, @RequestBody OrderStatusDto orderStatus) {
         return new ResponseEntity<>(ConvertDtoUtils.convertOrderToDto(orderService.updateOrder(id, orderStatus.getOrderStatus()).orElseThrow()),
                 HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'WAITER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);
