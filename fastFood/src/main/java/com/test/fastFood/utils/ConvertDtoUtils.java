@@ -81,6 +81,7 @@ public class ConvertDtoUtils {
     public static CityDto convertCityToDto(CityEntity city) {
         return CityDto.builder()
                 .name(city.getName())
+                .countryId(city.getCountry().getId())
                 .build();
     }
 
