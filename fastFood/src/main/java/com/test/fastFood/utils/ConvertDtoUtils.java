@@ -7,6 +7,8 @@ import com.test.fastFood.dto.filial.RestaurantFilialDto;
 import com.test.fastFood.dto.menu.MenuDto;
 import com.test.fastFood.dto.order.OrderDto;
 import com.test.fastFood.dto.restaurant.RestaurantDto;
+import com.test.fastFood.dto.user.PrivilegeDto;
+import com.test.fastFood.dto.user.RoleDto;
 import com.test.fastFood.dto.user.UserDto;
 import com.test.fastFood.entity.address.Address;
 import com.test.fastFood.entity.address.CityEntity;
@@ -15,8 +17,12 @@ import com.test.fastFood.entity.order.OrderEntity;
 import com.test.fastFood.entity.restaurant.MenuEntity;
 import com.test.fastFood.entity.restaurant.RestaurantEntity;
 import com.test.fastFood.entity.restaurant.RestaurantFilial;
+import com.test.fastFood.entity.user.Privilege;
+import com.test.fastFood.entity.user.RoleEntity;
 import com.test.fastFood.entity.user.UserEntity;
 import com.test.fastFood.enums.OrderStatus;
+
+import java.util.stream.Collectors;
 
 public class ConvertDtoUtils {
 
@@ -33,7 +39,7 @@ public class ConvertDtoUtils {
         return UserDto.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .role(user.getRole())
+//                .role(user.getRole())
                 .name(user.getUserProfile().getName())
                 .surname(user.getUserProfile().getSurname())
                 .address(convertAddressToDto(user.getUserProfile().getAddress()))
@@ -88,6 +94,18 @@ public class ConvertDtoUtils {
     public static CountryDto convertCountryToDto(CountryEntity country) {
         return CountryDto.builder()
                 .name(country.getName())
+                .build();
+    }
+
+    public static PrivilegeDto convertPrivilegeToDto(Privilege privilege) {
+        return PrivilegeDto.builder()
+                .name(privilege.getName())
+                .build();
+    }
+
+    public static RoleDto convertRoleToDto(RoleEntity role) {
+        return RoleDto.builder()
+                .name(role.getName())
                 .build();
     }
 }

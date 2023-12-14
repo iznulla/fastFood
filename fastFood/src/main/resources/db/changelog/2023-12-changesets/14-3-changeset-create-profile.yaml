@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3-create-profile
+      author: codela
+      changes:
+        - createTable:
+            tableName: user_profile
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: surname
+                  type: varchar(255)
+              - column:
+                  name: create_at
+                  type: timestamp
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_profile_user
+                    references: users(id)

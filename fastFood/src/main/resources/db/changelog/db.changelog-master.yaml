@@ -1,25 +1,9 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/changeset-create-user.yaml
+      file: db/changelog/2023-12-changesets/14-2-changeset-create-users.yaml
   - include:
-      file: db/changelog/changeset-addUniqueConstrain-user.yaml
+      file: db/changelog/2023-12-changesets/14-1-changeset-create-role.yaml
   - include:
-      file: db/changelog/changeset-create-menu.yaml
+      file: db/changelog/2023-12-changesets/14-3-changeset-create-profile.yaml
   - include:
-      file: db/changelog/changeset-addPriceColumn-menu.yaml
-  - include:
-      file: db/changelog/changeset-addAutoincrement-menu.yaml
-  - include:
-      file: db/changelog/changeset-rename-column-id-User-and-Manu.yaml
-  - include:
-      file: db/changelog/changeset-create-orders-and-orderMenu.yaml
-  - include:
-      file: db/changelog/changeset-add-id-order-menu.yaml
-  - include:
-      file: db/changelog/changeset-drop-table-orderentiy-menu-order.yaml
-  - include:
-      file: db/changelog/changeset-createtable-menu-orders.yaml
-  - include:
-      file: db/changelog/changeset-droptables-menu-order.yaml
-  - include:
-      file: db/changelog/changeset-dropcolumn-from-menu.yaml
+      file: db/changelog/2023-12-changesets/14-4-changeset-create-country-city-address.yaml

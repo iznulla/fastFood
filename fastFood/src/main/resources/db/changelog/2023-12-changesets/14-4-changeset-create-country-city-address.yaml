@@ -1,0 +1,90 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4-create-country
+      author: codela
+      changes:
+        - createTable:
+            tableName: country
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+
+  - changeSet:
+      id: 5-create-city
+      author: codela
+      changes:
+        - createTable:
+            tableName: city
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: country_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_city_country
+                    references: country(id)
+
+  - changeSet:
+      id: 6-create-address
+      author: codela
+      changes:
+        - createTable:
+            tableName: address
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: street
+                  type: varchar(255)
+              - column:
+                  name: country_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_address_country
+                    references: country(id)
+              - column:
+                  name: city_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_address_city
+                    references: city(id)
+
+
+  - changeSet:
+      id: 7-addAddressId-To-UserProfile
+      author: codela
+      changes:
+        - addColumn:
+            tableName: user_profile
+            columns:
+              - column:
+                  name: address_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_profile_address
+                    references: address(id)
+              - column:
+                  name: longitude
+                  type: double
+              - column:
+                  name: latitude
+                  type: double

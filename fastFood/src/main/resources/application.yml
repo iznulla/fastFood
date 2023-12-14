@@ -1,6 +1,6 @@
 spring:
   liquibase:
-    enabled: false
+    enabled: true
 
   datasource:
     url: ${URL}

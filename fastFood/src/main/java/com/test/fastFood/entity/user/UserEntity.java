@@ -1,7 +1,6 @@
 package com.test.fastFood.entity.user;
 
 import com.test.fastFood.entity.order.OrderEntity;
-import com.test.fastFood.enums.Role;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,8 +25,10 @@ public class UserEntity {
     private String username;
     @Column(name = "password")
     private String password;
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private RoleEntity role;
     @Column(columnDefinition = "boolean default false")
     private boolean isActive = false;
 

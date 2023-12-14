@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class MenuController {
     private final MenuService menuService;
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    @PreAuthorize("hasAuthority('CREATE')")
     @PostMapping
     public ResponseEntity<MenuDto> create(@RequestBody MenuDto menuDto) {
         menuService.create(menuDto);
@@ -41,13 +41,13 @@ public class MenuController {
         )), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    @PreAuthorize("hasAuthority('UPDATE')")
     @PatchMapping("/{id}")
     public ResponseEntity<MenuDto> update(@PathVariable Long id, @RequestBody MenuDto menuDto) {
         return new ResponseEntity<>(ConvertDtoUtils.MenuEntityToDto(menuService.update(id, menuDto).orElseThrow()), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    @PreAuthorize("hasAuthority('DELETE')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         menuService.delete(id);

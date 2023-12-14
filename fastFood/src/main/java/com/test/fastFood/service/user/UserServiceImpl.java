@@ -2,9 +2,11 @@ package com.test.fastFood.service.user;
 
 import com.test.fastFood.dto.user.UserDto;
 import com.test.fastFood.entity.address.Address;
+import com.test.fastFood.entity.user.RoleEntity;
 import com.test.fastFood.entity.user.UserEntity;
 import com.test.fastFood.entity.user.UserProfile;
 import com.test.fastFood.exception.NotFoundException;
+import com.test.fastFood.repository.RoleRepository;
 import com.test.fastFood.repository.UserRepository;
 import com.test.fastFood.service.address.AddressService;
 import com.test.fastFood.service.email.EmailServiceImpl;
@@ -28,13 +30,15 @@ public class UserServiceImpl implements UserService {
     private final AddressService addressService;
     private final EmailServiceImpl emailService;
     private final EmailVerificationService emailVerificationService;
+    private final RoleRepository roleRepository;
 
     @Override
     public Optional<UserEntity> createUser(UserDto userDto) {
+        RoleEntity role = roleRepository.findByName(userDto.getRole().getName()).orElseThrow();
         UserEntity user = UserEntity.builder()
                 .username(userDto.getUsername())
                 .password(passwordEncoder.encode(userDto.getPassword()))
-                .role(userDto.getRole())
+                .role(role)
                 .build();
         Address address = addressService.createAddress(userDto.getAddress()).orElseThrow();
         UserProfile profile = UserProfile.builder()
@@ -71,12 +75,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserEntity> updateUser(Long id, UserDto userDto) {
+        RoleEntity role = roleRepository.findByName(userDto.getRole().getName()).orElseThrow();
         UserEntity user = repository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format("User with id %s not found", id)
-        ));
+        ));;
         user.setUsername(userDto.getUsername());
         user.setPassword(user.getPassword());
-        user.setRole(userDto.getRole());
+        user.setRole(role);
         Address address = addressService.createAddress(userDto.getAddress()).orElseThrow();
         UserProfile profile = UserProfile.builder()
                 .user(user)

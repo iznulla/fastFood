@@ -1,0 +1,75 @@
+databaseChangeLog:
+  - changeSet:
+      id: createRoleTable
+      author: codela
+      changes:
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+
+  - changeSet:
+      id: createPrivilegeTable
+      author: codela
+      changes:
+        - createTable:
+            tableName: privilege
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+
+  - changeSet:
+      id: createRolePrivilegeTable
+      author: codela
+      changes:
+        - createTable:
+            tableName: role_privilege
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_role_privilege_role
+                    references: role(id)
+              - column:
+                  name: privilege_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_role_privilege_privilege
+                    references: privilege(id)
+
+
+  - changeSet:
+      id: addRoleIdToUserTable
+      author: codela
+      changes:
+        - addColumn:
+            tableName: users
+            columns:
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_users_role
+                    references: role(id)

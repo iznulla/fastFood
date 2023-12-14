@@ -55,3 +55,34 @@ insert into menu (name, cooking_time, price, restaurant_id) values ('Burger Beli
 insert into menu (name, cooking_time, price, restaurant_id) values ('Pizza Belissimo', 5, 30000, 1);
 insert into menu (name, cooking_time, price, restaurant_id) values ('Pasta Belissimo', 6, 55000, 1);
 insert into menu (name, cooking_time, price, restaurant_id) values ('Fish Belissimo', 7, 87000, 1);
+
+-- create role
+insert into role (name) values ('ADMIN');
+insert into role (name) values ('EMPLOYEE');
+
+-- create privilege
+insert into privilege (name) values ('READ');
+insert into privilege (name) values ('CREATE');
+insert into privilege (name) values ('UPDATE');
+insert into privilege (name) values ('DELETE');
+insert into privilege (name) values ('READ_USER');
+insert into privilege (name) values ('DELETE_USER');
+insert into privilege (name) values ('UPDATE_USER');
+insert into privilege (name) values ('ORDER_SERVICE');
+
+-- create role_privilege
+insert into role_privilege (role_id, privilege_id) values (1, 1);
+insert into role_privilege (role_id, privilege_id) values (1, 2);
+insert into role_privilege (role_id, privilege_id) values (1, 3);
+insert into role_privilege (role_id, privilege_id) values (1, 4);
+insert into role_privilege (role_id, privilege_id) values (1, 5);
+insert into role_privilege (role_id, privilege_id) values (1, 6);
+insert into role_privilege (role_id, privilege_id) values (1, 7);
+insert into role_privilege (role_id, privilege_id) values (1, 8);
+insert into role_privilege (role_id, privilege_id) values (2, 1);
+insert into role_privilege (role_id, privilege_id) values (2, 5);
+insert into role_privilege (role_id, privilege_id) values (2, 8);
+insert into role_privilege (role_id, privilege_id) values (2, 3);
+
+UPDATE users SET role_id = 1 WHERE id = 1;
+update users set role_id = 2 where id = 2;
