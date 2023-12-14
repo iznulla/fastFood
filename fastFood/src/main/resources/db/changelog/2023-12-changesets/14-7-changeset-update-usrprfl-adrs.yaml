@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 13-remove-Longitude-Latitude-From-UserProfile
+      author: codela
+      changes:
+        - dropColumn:
+            tableName: user_profile
+            columnName: longitude
+
+        - dropColumn:
+            tableName: user_profile
+            columnName: latitude
+
+  - changeSet:
+      id: 14-add-Longitude-Latitude-To-Address
+      author: codela
+      changes:
+        - addColumn:
+            tableName: address
+            columns:
+              - column:
+                  name: longitude
+                  type: DOUBLE
+              - column:
+                  name: latitude
+                  type: DOUBLE

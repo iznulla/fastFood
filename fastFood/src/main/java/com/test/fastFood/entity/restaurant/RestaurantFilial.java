@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
+@Table(name = "restaurant_filial")
 public class RestaurantFilial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8-create-restaurant
+      author: codela
+      changes:
+        - createTable:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+
+  - changeSet:
+      id: 9-create-filial
+      author: codela
+      changes:
+        - createTable:
+            tableName: restaurant_filial
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: restaurant_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_filial_restaurant
+                    references: restaurant(id)
+              - column:
+                  name: address_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_filial_address
+                    references: address(id)
+
+  - changeSet:
+      id: 10-create-menu
+      author: codela
+      changes:
+        - createTable:
+            tableName: menu
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+              - column:
+                  name: price
+                  type: int
+              - column:
+                  name: create_at
+                  type: timestamp
+              - column:
+                  name: cookie_time
+                  type: int
+              - column:
+                  name: restaurant_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_menu_restaurant
+                    references: restaurant(id)

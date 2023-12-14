@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/city")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PreAuthorize("hasAuthority('CREATE_COUNTRY_AND_CITY')")
 public class CityController {
     private final CityService cityService;
 

@@ -1,0 +1,96 @@
+databaseChangeLog:
+  - changeSet:
+      id: 11-create-orders
+      author: codela
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: quantity
+                  type: int
+              - column:
+                  name: total_price
+                  type: int
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_order_user
+                    references: users(id)
+
+  - changeSet:
+      id: 12-create-order-info
+      author: codela
+      changes:
+        - createTable:
+            tableName: order_information
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: delivery_time
+                  type: timestamp
+              - column:
+                  name: order_at
+                  type: timestamp
+              - column:
+                  name: status
+                  type: varchar(50)
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_order_information_order
+                    references: orders(id)
+              - column:
+                  name: address_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_order_information_address
+                    references: address(id)
+              - column:
+                  name: restaurant_filial_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_order_information_restaurant_filial
+                    references: restaurant_filial(id)
+
+  - changeSet:
+      id: 12-order-menu
+      author: codela
+      changes:
+        - createTable:
+            tableName: orders_menu_items
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: order_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_menu_order_order
+                    references: orders(id)
+              - column:
+                  name: menu_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_menu_order_menu
+                    references: menu(id)
+              - column:
+                  name: quantity
+                  type: int

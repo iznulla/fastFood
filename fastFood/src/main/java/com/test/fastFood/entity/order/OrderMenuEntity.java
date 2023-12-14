@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Orders_Menu_Items")
+@Table(name = "orders_menu_items")
 public class OrderMenuEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +18,9 @@ public class OrderMenuEntity {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-//    @JsonIgnore
     private OrderEntity order;
     @ManyToOne
     @JoinColumn(name = "menu_id")
-//    @JsonIgnore
     private MenuEntity menu;
     private Integer quantity;
 

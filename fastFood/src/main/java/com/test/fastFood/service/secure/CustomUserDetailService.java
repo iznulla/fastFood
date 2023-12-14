@@ -26,8 +26,6 @@ import java.util.stream.Collectors;
 public class CustomUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final PrivilegeRepository privilegeRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -7,3 +7,11 @@ databaseChangeLog:
       file: db/changelog/2023-12-changesets/14-3-changeset-create-profile.yaml
   - include:
       file: db/changelog/2023-12-changesets/14-4-changeset-create-country-city-address.yaml
+  - include:
+      file: db/changelog/2023-12-changesets/14-5-changeset-creaete-menu-restourant-filial.yaml
+  - include:
+      file: db/changelog/2023-12-changesets/14-6-changeset-create-order-orderinfo-ordmenu.yaml
+  - include:
+      file: db/changelog/2023-12-changesets/14-7-changeset-update-usrprfl-adrs.yaml
+  - include:
+      file: db/changelog/2023-12-changesets/14-8-changeset-update-menu.yaml

@@ -25,12 +25,12 @@ public class OrderEntity {
     @JsonIgnore
     private UserEntity user;
 
+    private Integer quantity;
+    private Integer totalPrice;
+
     @Builder.Default
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<OrderMenuEntity> orderMenuEntities = new ArrayList<>();
-
-    private Integer quantity;
-    private Integer totalPrice;
 
     @OneToOne(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private OrderInformation information;

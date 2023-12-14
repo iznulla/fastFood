@@ -38,10 +38,10 @@ insert into restaurant_filial (name, address_id, restaurant_id) values ('Evos Pa
 
 
 -- create user profile
-insert into user_profile (name, surname, user_id, address_id) values ('Admin', 'Admin', 1, 1);
-insert into user_profile (name, surname, user_id, address_id) values ('Freddy', 'Barens', 2, 2);
-insert into user_profile (name, surname, user_id, address_id) values ('John', 'Doe', 3, 3);
-insert into user_profile (name, surname, user_id, address_id) values ('Bugi', 'Man', 4, 4);
+--insert into user_profile (name, surname, user_id, address_id) values ('Admin', 'Admin', 1, 1);
+--insert into user_profile (name, surname, user_id, address_id) values ('Freddy', 'Barens', 2, 2);
+--insert into user_profile (name, surname, user_id, address_id) values ('John', 'Doe', 3, 3);
+--insert into user_profile (name, surname, user_id, address_id) values ('Bugi', 'Man', 4, 4);
 
 -- create menu
 -- Evos
@@ -61,14 +61,17 @@ insert into role (name) values ('ADMIN');
 insert into role (name) values ('EMPLOYEE');
 
 -- create privilege
-insert into privilege (name) values ('READ');
-insert into privilege (name) values ('CREATE');
-insert into privilege (name) values ('UPDATE');
-insert into privilege (name) values ('DELETE');
-insert into privilege (name) values ('READ_USER');
-insert into privilege (name) values ('DELETE_USER');
-insert into privilege (name) values ('UPDATE_USER');
-insert into privilege (name) values ('ORDER_SERVICE');
+insert into privilege (name) values ('READ'); --1
+insert into privilege (name) values ('CREATE'); --2
+insert into privilege (name) values ('UPDATE'); --3
+insert into privilege (name) values ('DELETE'); --4
+insert into privilege (name) values ('READ_USER'); --5
+insert into privilege (name) values ('DELETE_USER'); --6
+insert into privilege (name) values ('UPDATE_USER'); --7
+insert into privilege (name) values ('ORDER_SERVICE'); --8
+insert into privilege (name) values ('CREATE_COUNTRY_AND_CITY'); --9
+insert into privilege (name) values ('CREATE_RESTAURANT_AND_FILIAL'); --10
+
 
 -- create role_privilege
 insert into role_privilege (role_id, privilege_id) values (1, 1);
@@ -79,10 +82,12 @@ insert into role_privilege (role_id, privilege_id) values (1, 5);
 insert into role_privilege (role_id, privilege_id) values (1, 6);
 insert into role_privilege (role_id, privilege_id) values (1, 7);
 insert into role_privilege (role_id, privilege_id) values (1, 8);
+insert into role_privilege (role_id, privilege_id) values (1, 9);
+insert into role_privilege (role_id, privilege_id) values (1, 10);
 insert into role_privilege (role_id, privilege_id) values (2, 1);
 insert into role_privilege (role_id, privilege_id) values (2, 5);
 insert into role_privilege (role_id, privilege_id) values (2, 8);
 insert into role_privilege (role_id, privilege_id) values (2, 3);
 
-UPDATE users SET role_id = 1 WHERE id = 1;
-update users set role_id = 2 where id = 2;
+--UPDATE users SET role_id = 1 WHERE id = 1;
+--update users set role_id = 2 where id = 2;

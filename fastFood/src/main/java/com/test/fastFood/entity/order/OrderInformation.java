@@ -21,21 +21,23 @@ public class OrderInformation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Instant deliveryTime;
+    private Instant orderAt;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status")
+    private OrderStatus orderStatus;
+
     @OneToOne
     @JoinColumn(name = "order_id")
     @JsonIgnore
     private OrderEntity order;
-    private Instant orderAt;
-    @Enumerated(value = EnumType.STRING)
-    private OrderStatus orderStatus;
     @OneToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    private Instant deliveryTime;
-
     @ManyToOne
-    @JoinColumn(name = "restaurantFilial_id", referencedColumnName = "id")
+    @JoinColumn(name = "restaurant_filial_id", referencedColumnName = "id")
     private RestaurantFilial restaurantFilial;
 
     @Transient

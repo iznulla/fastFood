@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 15-rename-CookieTimeColumn
+      author: codela
+      changes:
+        - renameColumn:
+            tableName: menu
+            oldColumnName: cookie_time
+            newColumnName: cooking_time
+            columnDataType: int

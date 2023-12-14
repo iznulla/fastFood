@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/filial")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@PreAuthorize("hasAuthority('CREATE_RESTAURANT_AND_FILIAL')")
 public class FilialController {
     private final RestaurantFilialService restaurantFilialService;
 
