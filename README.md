@@ -123,3 +123,20 @@ Spring Boot приложение будет доступно по адресу *
     }
 }
 ```
+
+## FILIAL CRUD
+
+- POST-GET /role - create filial, get all filial
+- PATCH, DELETE, GET /role/{id} - update-delete-get role
+
+### Create-Update Roles JSON example
+```json
+{
+    "name" : "USER",
+    "privileges" : [
+        { "name" : "READ_PRIVILEGE" },
+        { "name" : "UPDATE_PRIVILEGE"}
+    ]
+}
+```
+
