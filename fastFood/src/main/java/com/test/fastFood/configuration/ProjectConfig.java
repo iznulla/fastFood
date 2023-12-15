@@ -1,6 +1,12 @@
 package com.test.fastFood.configuration;
 
+import com.test.fastFood.entity.user.Privilege;
+import com.test.fastFood.entity.user.RoleEntity;
+import com.test.fastFood.entity.user.RolePrivilege;
 import com.test.fastFood.entity.user.UserEntity;
+import com.test.fastFood.repository.PrivilegeRepository;
+import com.test.fastFood.repository.RolePrivilegeRepository;
+import com.test.fastFood.repository.RoleRepository;
 import com.test.fastFood.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -14,41 +20,37 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProjectConfig {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PrivilegeRepository privilegeRepository;
+    private final RolePrivilegeRepository rolePrivilegeRepository;
     private final PasswordEncoder passwordEncoder;
 
-//    @PostConstruct
-//    private void initDefaultUsers() {
-//        List<UserEntity> users = new ArrayList<>();
-//        UserEntity admin = UserEntity.builder()
-//                .username("admin")
-//                .password(passwordEncoder.encode("admin"))
-//                .role(null)
-//                .isActive(true)
-//                .build();
-//        users.add(admin);
-//        UserEntity user1 = UserEntity.builder()
-//                .username("lolo")
-//                .password(passwordEncoder.encode("123"))
-//                .role(null)
-//                .isActive(true)
-//                .build();
-//        users.add(user1);
-//        UserEntity user2 = UserEntity.builder()
-//                .username("bolo")
-//                .password(passwordEncoder.encode("123"))
-//                .role(null)
-//                .isActive(true)
-//                .build();
-//        users.add(user2);
-//        UserEntity user3 = UserEntity.builder()
-//                .username("polo")
-//                .password(passwordEncoder.encode("123"))
-//                .role(null)
-//                .isActive(true)
-//                .build();
-//        users.add(user3);
-//        userRepository.saveAll(users);
-//    }
+    @PostConstruct
+    private void initDefaultUsers() {
+        Privilege privilege = Privilege.builder()
+                .name("ALL")
+                .build();
+        privilegeRepository.save(privilege);
+        RoleEntity role = RoleEntity.builder()
+                .name("ADMIN")
+                .build();
+
+        RolePrivilege rolePrivilege = new RolePrivilege();
+        rolePrivilege.setPrivilege(privilege);
+        rolePrivilege.setRole(role);
+//        roleRepository.save(role);
+
+//        rolePrivilegeRepository.save(rolePrivilege);
+
+        roleRepository.save(role);
+        UserEntity admin = UserEntity.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("admin"))
+                .role(role)
+                .isActive(true)
+                .build();
+        userRepository.save(admin);
+    }
 
 
     // environment

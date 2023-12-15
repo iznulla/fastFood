@@ -15,3 +15,5 @@ databaseChangeLog:
       file: db/changelog/2023-12-changesets/14-7-changeset-update-usrprfl-adrs.yaml
   - include:
       file: db/changelog/2023-12-changesets/14-8-changeset-update-menu.yaml
+  - include:
+      file: db/changelog/2023-12-changesets/14-9-changeset-initial-data.yaml

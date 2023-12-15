@@ -1,0 +1,426 @@
+databaseChangeLog:
+  - changeSet:
+      id: 16-initial_data_country
+      author: codela
+      changes:
+        - insert:
+            tableName: country
+            columns:
+              - column:
+                  name: name
+                  value: Uzbekistan
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Tashkent
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Samarkand
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Bukhara
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Andijon
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Jizzax
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Navoiy
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Namangan
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Surxondaryo
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Qashqadaryo
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Xorazm
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Fargona
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: city
+            columns:
+              - column:
+                  name: name
+                  value: Sirdaryo
+              - column:
+                  name: country_id
+                  value: 1
+        - insert:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: name
+                  value: Belissimo
+        - insert:
+            tableName: restaurant
+            columns:
+              - column:
+                  name: name
+                  value: Evos
+        - insert:
+            tableName: address
+            columns:
+              - column:
+                  name: street
+                  value: Buyuk Ipak Yuli
+              - column:
+                  name: country_id
+                  value: 1
+              - column:
+                  name: city_id
+                  value: 1
+        - insert:
+            tableName: address
+            columns:
+              - column:
+                  name: street
+                  value: Pushkin
+              - column:
+                  name: country_id
+                  value: 1
+              - column:
+                  name: city_id
+                  value: 1
+        - insert:
+            tableName: address
+            columns:
+              - column:
+                  name: street
+                  value: Vokzal
+              - column:
+                  name: country_id
+                  value: 1
+              - column:
+                  name: city_id
+                  value: 1
+        - insert:
+            tableName: address
+            columns:
+              - column:
+                  name: street
+                  value: MEGA
+              - column:
+                  name: country_id
+                  value: 1
+              - column:
+                  name: city_id
+                  value: 1
+              - column:
+                  name: longitude
+                  value: 41.36970942223147
+              - column:
+                  name: latitude
+                  value: 69.29096999864346
+        - insert:
+            tableName: address
+            columns:
+              - column:
+                  name: street
+                  value: ECO Evos
+              - column:
+                  name: country_id
+                  value: 1
+              - column:
+                  name: city_id
+                  value: 1
+              - column:
+                  name: longitude
+                  value: 41.35473807941441
+              - column:
+                  name: latitude
+                  value: 69.35377212618005
+        - insert:
+            tableName: address
+            columns:
+              - column:
+                  name: street
+                  value: SETOR Street
+              - column:
+                  name: country_id
+                  value: 1
+              - column:
+                  name: city_id
+                  value: 1
+              - column:
+                  name: longitude
+                  value: 41.37877290431757
+              - column:
+                  name: latitude
+                  value: 69.28014154570097
+        - insert:
+            tableName: address
+            columns:
+              - column:
+                  name: street
+                  value: Yunusobod
+              - column:
+                  name: country_id
+                  value: 1
+              - column:
+                  name: city_id
+                  value: 1
+              - column:
+                  name: longitude
+                  value: 41.36150921509543
+              - column:
+                  name: latitude
+                  value: 69.27684379953357
+        - insert:
+            tableName: address
+            columns:
+              - column:
+                  name: street
+                  value: Parkentskiy
+              - column:
+                  name: country_id
+                  value: 1
+              - column:
+                  name: city_id
+                  value: 1
+              - column:
+                  name: longitude
+                  value: 41.31667834566728
+              - column:
+                  name: latitude
+                  value: 69.32820439953356
+        - insert:
+            tableName: restaurant_filial
+            columns:
+              - column:
+                  name: name
+                  value: 'Belissimo ECO'
+              - column:
+                  name: address_id
+                  value: 5
+              - column:
+                  name: restaurant_id
+                  value: 1
+        - insert:
+            tableName: restaurant_filial
+            columns:
+              - column:
+                  name: name
+                  value: 'Belissimo SETOR'
+              - column:
+                  name: address_id
+                  value: 6
+              - column:
+                  name: restaurant_id
+                  value: 1
+        - insert:
+            tableName: restaurant_filial
+            columns:
+              - column:
+                  name: name
+                  value: 'Evos Yunusobod'
+              - column:
+                  name: address_id
+                  value: 7
+              - column:
+                  name: restaurant_id
+                  value: 2
+        - insert:
+            tableName: restaurant_filial
+            columns:
+              - column:
+                  name: name
+                  value: 'Evos Parkentskiy'
+              - column:
+                  name: address_id
+                  value: 8
+              - column:
+                  name: restaurant_id
+                  value: 2
+        - insert:
+            tableName: menu
+            columns:
+              - column:
+                  name: name
+                  value: 'Burger Evos'
+              - column:
+                  name: cooking_time
+                  value: 4
+              - column:
+                  name: price
+                  value: 45000
+              - column:
+                  name: restaurant_id
+                  value: 2
+        - insert:
+            tableName: menu
+            columns:
+              - column:
+                  name: name
+                  value: 'Pizza Evos'
+              - column:
+                  name: cooking_time
+                  value: 5
+              - column:
+                  name: price
+                  value: 30000
+              - column:
+                  name: restaurant_id
+                  value: 2
+        - insert:
+            tableName: menu
+            columns:
+              - column:
+                  name: name
+                  value: 'Pasta Evos'
+              - column:
+                  name: cooking_time
+                  value: 6
+              - column:
+                  name: price
+                  value: 55000
+              - column:
+                  name: restaurant_id
+                  value: 2
+        - insert:
+            tableName: menu
+            columns:
+              - column:
+                  name: name
+                  value: 'Fish Evos'
+              - column:
+                  name: cooking_time
+                  value: 7
+              - column:
+                  name: price
+                  value: 87000
+              - column:
+                  name: restaurant_id
+                  value: 2
+        - insert:
+            tableName: menu
+            columns:
+              - column:
+                  name: name
+                  value: 'Burger Belissimo'
+              - column:
+                  name: cooking_time
+                  value: 4
+              - column:
+                  name: price
+                  value: 45000
+              - column:
+                  name: restaurant_id
+                  value: 1
+        - insert:
+            tableName: menu
+            columns:
+              - column:
+                  name: name
+                  value: 'Pizza Belissimo'
+              - column:
+                  name: cooking_time
+                  value: 5
+              - column:
+                  name: price
+                  value: 30000
+              - column:
+                  name: restaurant_id
+                  value: 1
+        - insert:
+            tableName: menu
+            columns:
+              - column:
+                  name: name
+                  value: 'Pasta Belissimo'
+              - column:
+                  name: cooking_time
+                  value: 6
+              - column:
+                  name: price
+                  value: 55000
+              - column:
+                  name: restaurant_id
+                  value: 1
+        - insert:
+            tableName: menu
+            columns:
+              - column:
+                  name: name
+                  value: 'Fish Belissimo'
+              - column:
+                  name: cooking_time
+                  value: 7
+              - column:
+                  name: price
+                  value: 87000
+              - column:
+                  name: restaurant_id
+                  value: 1
+

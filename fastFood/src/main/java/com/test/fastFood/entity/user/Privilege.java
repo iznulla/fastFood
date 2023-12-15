@@ -19,6 +19,6 @@ public class Privilege {
     private String name;
 
     @Builder.Default
-    @OneToMany(mappedBy = "privilege", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "privilege", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RolePrivilege> rolePrivileges = new ArrayList<>();
 }

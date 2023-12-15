@@ -27,6 +27,6 @@ public class RoleEntity {
     private List<UserEntity> users = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RolePrivilege> rolePrivileges = new ArrayList<>();
 }
