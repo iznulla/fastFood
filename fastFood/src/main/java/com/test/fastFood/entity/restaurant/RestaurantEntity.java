@@ -21,10 +21,10 @@ public class RestaurantEntity {
     private String name;
 
     @Builder.Default
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<RestaurantFilial> restaurantFilial = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<MenuEntity> menus = new ArrayList<>();
 }

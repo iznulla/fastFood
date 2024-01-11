@@ -6,16 +6,8 @@ spring:
     url: ${URL}
     username: ${USERNAME}
     password: ${PASSWORD}
-
-  jpa:
-    database-platform: ${DATABASE_PLATFORM}
-    hibernate:
-      ddl-auto: ${DDL_AUTO}
-    defer-datasource-initialization: ${DATASOURCE_INITIALIZATION}
-
-  sql:
-    init:
-      mode: ${INIT_MODE}
+  h2:
+    console.enabled: true
 
   mail:
     host: ${MAIL_HOST}

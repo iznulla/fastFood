@@ -2,6 +2,7 @@ package com.test.fastFood.controller.country;
 
 import com.test.fastFood.dto.address.CountryDto;
 import com.test.fastFood.service.address.country.CountryService;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/country")
-@PreAuthorize("hasAuthority('CREATE_COUNTRY_AND_CITY')")
+@PreAuthorize("hasAuthority('ALL')")
 public class CountryController {
     private final CountryService countryService;
 

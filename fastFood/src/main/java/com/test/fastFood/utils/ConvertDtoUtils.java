@@ -28,7 +28,6 @@ public class ConvertDtoUtils {
 
     public static MenuDto MenuEntityToDto(MenuEntity menu) {
         return MenuDto.builder()
-                .restaurantId(menu.getRestaurant().getId())
                 .name(menu.getName())
                 .price(menu.getPrice())
                 .cookingTime(menu.getCookingTime())

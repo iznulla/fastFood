@@ -8,7 +8,7 @@ import java.util.Random;
 
 @Getter
 @Service
-public final class EmailVerificationService {
+public class EmailVerificationService {
     private String verifyCode;
     private Instant expiredDate;
 

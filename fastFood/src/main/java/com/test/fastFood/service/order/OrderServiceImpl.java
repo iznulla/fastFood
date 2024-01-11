@@ -10,7 +10,7 @@ import com.test.fastFood.entity.restaurant.MenuEntity;
 import com.test.fastFood.entity.restaurant.RestaurantEntity;
 import com.test.fastFood.entity.user.UserEntity;
 import com.test.fastFood.enums.OrderStatus;
-import com.test.fastFood.exception.NotFoundException;
+import com.test.fastFood.exception.ResourceNotFoundException;
 import com.test.fastFood.repository.OrderRepository;
 import com.test.fastFood.repository.RestaurantRepository;
 import com.test.fastFood.service.address.AddressService;
@@ -41,8 +41,9 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Optional<OrderEntity> createOrder(OrderCreateDto orderCreateDto) {
         OrderUtils orderUtils = new OrderUtils();
-        UserEntity user = userService.getUserById(SecurityUtils.getCurrentUserId()).orElseThrow(
-                () -> new NotFoundException(
+        Long userId = SecurityUtils.getCurrentUserId();
+        UserEntity user = userService.getUserById(userId).orElseThrow(
+                () -> new ResourceNotFoundException(
                         String.format("User with id %d not found", SecurityUtils.getCurrentUserId())
                 )
         );
@@ -60,7 +61,7 @@ public class OrderServiceImpl implements OrderService{
             orderMenuEntity.setOrder(orderEntity);
 
             MenuEntity menu = menuService.findById(orderBuilder.getMenuId()).orElseThrow(
-                    () -> new NotFoundException(
+                    () -> new ResourceNotFoundException(
                             String.format("Menu with id %d not found", orderBuilder.getMenuId())
                     )
             );
@@ -69,7 +70,7 @@ public class OrderServiceImpl implements OrderService{
         }
 
         Long finalRestaurantId = restaurantId;
-        RestaurantEntity restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFoundException(
+        RestaurantEntity restaurant = restaurantRepository.findById(restaurantId).orElseThrow(() -> new ResourceNotFoundException(
                 String.format("Restaurant with id %d not found", finalRestaurantId)
         ));
 
@@ -97,7 +98,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Optional<OrderEntity> getOrderById(Long id) {
         OrderEntity order = orderRepository.findById(id).orElseThrow(
-                () -> new NotFoundException(
+                () -> new ResourceNotFoundException(
                         String.format("Order with id %d not found", id)
                 )
         );
@@ -107,7 +108,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<OrderEntity> getOrdersByUser(Long id) {
         UserEntity user = userService.getUserById(id).orElseThrow(
-                () -> new NotFoundException(
+                () -> new ResourceNotFoundException(
                         String.format("User with id %d not found", id)
                 )
         );
@@ -117,23 +118,23 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public Optional<OrderEntity> updateOrder(Long id, OrderStatus orderStatus) {
         OrderEntity order = orderRepository.findById(id).orElseThrow(
-                () -> new NotFoundException(
+                () -> new ResourceNotFoundException(
                         String.format("Order with id %d not found", id)
                 )
         );
         order.getInformation().setOrderStatus(orderStatus);
         orderRepository.save(order);
-        log.warn("Order status is changed to: {} from {}", orderStatus, SecurityUtils.getCurrentUsername());
+        log.warn("Order status is changed to: {}", orderStatus);
         return Optional.of(order);
     }
 
     @Override
     public void deleteOrder(Long id) {
         orderRepository.delete(orderRepository.findById(id).orElseThrow(
-                () -> new NotFoundException(
+                () -> new ResourceNotFoundException(
                         String.format("Order with id %d not found", id)
                 )
         ));
-        log.warn("Order deleted by user {}, order id {}", SecurityUtils.getCurrentUsername(), id);
+        log.warn("Order deleted by id {}", id);
     }
 }

@@ -35,7 +35,7 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private OrderInformation orderInformation;
 
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private RestaurantFilial restaurantFilial;
 
     private Double longitude;

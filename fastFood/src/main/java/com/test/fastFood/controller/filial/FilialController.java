@@ -13,30 +13,29 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/filial")
-@PreAuthorize("hasAuthority('CREATE_RESTAURANT_AND_FILIAL')")
+@PreAuthorize("hasAnyAuthority({'CREATE_RESTAURANT_AND_FILIAL', 'ALL'})")
 public class FilialController {
     private final RestaurantFilialService restaurantFilialService;
 
     @GetMapping
-    public ResponseEntity<List<RestaurantFilialDto>> getAllRestaurantFilial() {
+    public ResponseEntity<List<?>> getAllRestaurantFilial() {
         return new ResponseEntity<>(restaurantFilialService.getAllRestaurantFilial(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<RestaurantFilialDto> createRestaurantFilial(@RequestBody RestaurantFilialDto restaurantFilialDto) {
-        restaurantFilialService.createRestaurantFilial(restaurantFilialDto).orElseThrow();
-        return new ResponseEntity<>(restaurantFilialDto, HttpStatus.CREATED);
+    public ResponseEntity<?> createRestaurantFilial(@RequestBody RestaurantFilialDto restaurantFilialDto) {;
+        return new ResponseEntity<>(restaurantFilialService.createRestaurantFilial(restaurantFilialDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RestaurantFilialDto> getRestaurantFilialById(@PathVariable Long id) {
-        return new ResponseEntity<>(restaurantFilialService.getRestaurantFilialById(id).orElseThrow(), HttpStatus.OK);
+    public ResponseEntity<?> getRestaurantFilialById(@PathVariable Long id) {
+        return new ResponseEntity<>(restaurantFilialService.getRestaurantFilialById(id), HttpStatus.OK);
     }
 
 
     @PatchMapping("/{id}")
-    public ResponseEntity<RestaurantFilialDto> updateRestaurantFilial(@PathVariable Long id, @RequestBody RestaurantFilialDto restaurantFilialDto) {
-        return new ResponseEntity<>(restaurantFilialService.updateRestaurantFilial(id, restaurantFilialDto).orElseThrow(), HttpStatus.CREATED);
+    public ResponseEntity<?> updateRestaurantFilial(@PathVariable Long id, @RequestBody RestaurantFilialDto restaurantFilialDto) {
+        return new ResponseEntity<>(restaurantFilialService.updateRestaurantFilial(id, restaurantFilialDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

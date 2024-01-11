@@ -4,8 +4,6 @@ import com.test.fastFood.dto.order.OrderDto;
 import com.test.fastFood.dto.user.UserDto;
 import com.test.fastFood.dto.user.VerifyDto;
 import com.test.fastFood.entity.user.UserEntity;
-import com.test.fastFood.exception.UserAlreadyVerifiedException;
-import com.test.fastFood.service.email.EmailServiceImpl;
 import com.test.fastFood.service.order.OrderService;
 import com.test.fastFood.service.user.UserService;
 import com.test.fastFood.utils.ConvertDtoUtils;

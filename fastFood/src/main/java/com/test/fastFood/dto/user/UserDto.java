@@ -1,8 +1,6 @@
 package com.test.fastFood.dto.user;
 
 import com.test.fastFood.dto.address.AddressDto;
-import com.test.fastFood.entity.user.RoleEntity;
-import com.test.fastFood.enums.Role;
 import lombok.*;
 import org.springframework.stereotype.Component;
 

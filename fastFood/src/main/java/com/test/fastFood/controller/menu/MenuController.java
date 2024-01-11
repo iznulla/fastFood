@@ -1,7 +1,7 @@
 package com.test.fastFood.controller.menu;
 
 import com.test.fastFood.dto.menu.MenuDto;
-import com.test.fastFood.exception.NotFoundException;
+import com.test.fastFood.exception.ResourceNotFoundException;
 import com.test.fastFood.service.menu.MenuService;
 import com.test.fastFood.utils.ConvertDtoUtils;
 import lombok.RequiredArgsConstructor;
@@ -19,35 +19,28 @@ import java.util.stream.Collectors;
 public class MenuController {
     private final MenuService menuService;
 
-    @PreAuthorize("hasAuthority('CREATE')")
+    @PreAuthorize("hasAnyAuthority({'CREATE', 'ALL'})")
     @PostMapping
-    public ResponseEntity<MenuDto> create(@RequestBody MenuDto menuDto) {
-        menuService.create(menuDto);
-        return new ResponseEntity<>(menuDto, HttpStatus.CREATED);
+    public ResponseEntity<?> create(@RequestBody MenuDto menuDto) {
+        return new ResponseEntity<>(menuService.create(menuDto), HttpStatus.CREATED);
     }
     @GetMapping
-    public ResponseEntity<List<MenuDto>> getAllMenu() {
-        return new ResponseEntity<>(menuService.findAllMenu().stream()
-                .map(ConvertDtoUtils::MenuEntityToDto)
-                .collect(Collectors.toList()), HttpStatus.OK);
+    public ResponseEntity<?> getAllMenu() {
+        return new ResponseEntity<>(menuService.findAllMenu(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MenuDto> getMenuById(@PathVariable Long id) {
-        return new ResponseEntity<>(ConvertDtoUtils.MenuEntityToDto(menuService.findById(id).orElseThrow(
-                () -> new NotFoundException(
-                        String.format("Menu with id %d not found", id)
-                )
-        )), HttpStatus.OK);
+    public ResponseEntity<?> getMenuById(@PathVariable Long id) {
+        return new ResponseEntity<>(menuService.findById(id), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('UPDATE')")
+    @PreAuthorize("hasAnyAuthority({'UPDATE', 'ALL'})")
     @PatchMapping("/{id}")
     public ResponseEntity<MenuDto> update(@PathVariable Long id, @RequestBody MenuDto menuDto) {
-        return new ResponseEntity<>(ConvertDtoUtils.MenuEntityToDto(menuService.update(id, menuDto).orElseThrow()), HttpStatus.CREATED);
+        return new ResponseEntity<>(menuService.update(id, menuDto).orElseThrow(), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('DELETE')")
+    @PreAuthorize("hasAnyAuthority({'DELETE', 'ALL'})")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         menuService.delete(id);

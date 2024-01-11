@@ -8,5 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RestaurantDto {
+    private Long id;
     private String name;
 }

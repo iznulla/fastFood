@@ -1,21 +1,13 @@
 package com.test.fastFood.security;
 
-//import com.test.fastFood.entity.user.RoleEntity;
-//import com.test.fastFood.entity.user.RolePrivilege;
+
 import com.test.fastFood.entity.user.UserEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder

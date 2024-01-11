@@ -48,7 +48,6 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    @Lazy
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }

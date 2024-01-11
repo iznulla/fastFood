@@ -3,7 +3,7 @@ package com.test.fastFood.service.address.city;
 import com.test.fastFood.dto.address.CityDto;
 import com.test.fastFood.entity.address.CityEntity;
 import com.test.fastFood.entity.address.CountryEntity;
-import com.test.fastFood.exception.NotFoundException;
+import com.test.fastFood.exception.ResourceNotFoundException;
 import com.test.fastFood.repository.CityRepository;
 import com.test.fastFood.repository.CountryRepository;
 import com.test.fastFood.utils.ConvertDtoUtils;
@@ -25,22 +25,20 @@ public class CityServiceImpl implements CityService {
     @Override
     public Optional<CityDto> createCity(CityDto cityDto) {
         CountryEntity country = countryRepository.findById(cityDto.getCountryId()).orElseThrow(() ->
-                new NotFoundException("Not found country with id: " + cityDto.getCountryId()));
+                new ResourceNotFoundException("Not found country with id: " + cityDto.getCountryId()));
         CityEntity city = CityEntity.builder()
                 .name(cityDto.getName())
                 .build();
         city.setCountry(country);
         cityRepository.save(city);
         log.info("City created: {}", city.getName());
-        return Optional.of(CityDto.builder()
-                .name(city.getName())
-                .build());
+        return Optional.of(ConvertDtoUtils.convertCityToDto(city));
     }
 
     @Override
     public Optional<CityDto> updateCity(Long id, CityDto cityDto) {
         CityEntity city = cityRepository.findById(id).orElseThrow(() ->
-                new NotFoundException("Not found city with id: " + id));
+                new ResourceNotFoundException("Not found city with id: " + id));
         city.setName(cityDto.getName());
         cityRepository.save(city);
         log.info("City updated: {}", city.getName());
@@ -53,7 +51,7 @@ public class CityServiceImpl implements CityService {
     public Optional<CityDto> getCityById(Long id) {
         return Optional.of(CityDto.builder()
                 .name(cityRepository.findById(id).orElseThrow(() ->
-                        new NotFoundException("Not found city with id: " + id)).getName())
+                        new ResourceNotFoundException("Not found city with id: " + id)).getName())
                 .build());
     }
 
@@ -61,7 +59,7 @@ public class CityServiceImpl implements CityService {
     public Optional<CityDto> getCityByName(String name) {
         return Optional.of(CityDto.builder()
                 .name(cityRepository.findByName(name).orElseThrow(() ->
-                        new NotFoundException("Not found city with id: " + name)).getName())
+                        new ResourceNotFoundException("Not found city with id: " + name)).getName())
                 .build());
     }
 
@@ -73,7 +71,9 @@ public class CityServiceImpl implements CityService {
 
     @Override
     public void deleteCityById(Long id) {
+        CityEntity city = cityRepository.findById(id).orElseThrow(() ->
+                new ResourceNotFoundException("Not found city with id: " + id));
         log.info("City deleted by id: {}", id);
-        cityRepository.deleteById(id);
+        cityRepository.deleteById(city.getId());
     }
 }

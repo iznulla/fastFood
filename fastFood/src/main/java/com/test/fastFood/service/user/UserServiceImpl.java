@@ -5,7 +5,7 @@ import com.test.fastFood.entity.address.Address;
 import com.test.fastFood.entity.user.RoleEntity;
 import com.test.fastFood.entity.user.UserEntity;
 import com.test.fastFood.entity.user.UserProfile;
-import com.test.fastFood.exception.NotFoundException;
+import com.test.fastFood.exception.ResourceNotFoundException;
 import com.test.fastFood.repository.RoleRepository;
 import com.test.fastFood.repository.UserRepository;
 import com.test.fastFood.service.address.AddressService;
@@ -34,24 +34,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserEntity> createUser(UserDto userDto) {
-        RoleEntity role = roleRepository.findByName(userDto.getRole().getName()).orElseThrow();
-        UserEntity user = UserEntity.builder()
-                .username(userDto.getUsername())
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .role(role)
-                .build();
-        Address address = addressService.createAddress(userDto.getAddress()).orElseThrow();
-        UserProfile profile = UserProfile.builder()
-                .user(user)
-                .name(userDto.getName())
-                .surname(userDto.getSurname())
-                .createAt(Instant.now()).build();
-        profile.setAddress(address);
-        user.setUserProfile(profile);
-        repository.save(user);
-        emailService.sendSimpleMessage(userDto.getUsername(), "Verify Code", emailVerificationService.generateCode());
-        log.debug("Created user by name {}", userDto.getName());
-        return Optional.of(user);
+        RoleEntity role = roleRepository.findByName(userDto.getRole().getName()).orElseThrow(
+                () -> new ResourceNotFoundException("Not found role with name: " + userDto.getRole().getName())
+        );
+        try {
+            UserEntity user = UserEntity.builder()
+                    .username(userDto.getUsername())
+                    .password(passwordEncoder.encode(userDto.getPassword()))
+                    .role(role)
+                    .build();
+            Address address = addressService.createAddress(userDto.getAddress()).orElseThrow();
+            UserProfile profile = UserProfile.builder()
+                    .user(user)
+                    .name(userDto.getName())
+                    .surname(userDto.getSurname())
+                    .createAt(Instant.now()).build();
+            profile.setAddress(address);
+            user.setUserProfile(profile);
+            repository.save(user);
+            emailService.sendSimpleMessage(userDto.getUsername(), "Verify Code", emailVerificationService.generateCode());
+            log.debug("Created user by name {}", userDto.getName());
+            return Optional.of(user);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new ResourceNotFoundException("Invalid input data" + e.getMessage());
+        }
     }
 
 
@@ -75,21 +82,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<UserEntity> updateUser(Long id, UserDto userDto) {
-        RoleEntity role = roleRepository.findByName(userDto.getRole().getName()).orElseThrow();
-        UserEntity user = repository.findById(id).orElseThrow(() -> new NotFoundException(
+        RoleEntity role = roleRepository.findByName(userDto.getRole().getName()).orElseThrow(()
+                -> new ResourceNotFoundException("Not found role with name: " + userDto.getRole().getName()));
+        UserEntity user = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(
                 String.format("User with id %s not found", id)
-        ));;
+        ));
         user.setUsername(userDto.getUsername());
         user.setPassword(user.getPassword());
         user.setRole(role);
-        Address address = addressService.createAddress(userDto.getAddress()).orElseThrow();
-        UserProfile profile = UserProfile.builder()
-                .user(user)
-                .name(userDto.getName())
-                .surname(userDto.getSurname())
-                .createAt(Instant.now()).build();
-        profile.setAddress(address);
-        user.setUserProfile(profile);
+        Address address = addressService.updateAddress(user.getUserProfile().getAddress().getId(), userDto.getAddress()).orElseThrow(
+                () -> new ResourceNotFoundException("Not found address with name: " + userDto.getAddress().getStreet())
+        );
+        user.getUserProfile().setName(userDto.getName());
+        user.getUserProfile().setSurname(userDto.getSurname());
+        user.getUserProfile().setAddress(address);
         repository.save(user);
         log.debug("Updated user by id {}", id);
         return Optional.of(user);
@@ -97,7 +103,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-        UserEntity user = repository.findById(id).orElseThrow(() -> new NotFoundException(
+        UserEntity user = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(
                 String.format("User with id %s not found", id)
         ));
         log.debug("deleted user by id {}", id);
@@ -106,7 +112,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean verification(Long id, String code) {
-        UserEntity user = repository.findById(id).orElseThrow(() -> new NotFoundException(
+        UserEntity user = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(
                 String.format("User with id %s not found", id)
         ));
         if (user.isActive()) {

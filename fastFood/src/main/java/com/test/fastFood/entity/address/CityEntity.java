@@ -3,6 +3,7 @@ package com.test.fastFood.entity.address;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,9 +23,9 @@ public class CityEntity {
     @JoinColumn(name = "country_id")
     private CountryEntity country;
 
-
-    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<Address> addresses;
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @Builder.Default
+    private List<Address> addresses = new ArrayList<>();
 
     public void setCountry(CountryEntity country) {
         this.country = country;

@@ -9,10 +9,10 @@ import java.util.Optional;
 
 @Service
 public interface MenuService {
-    void create(MenuDto menuDto);
-    List<MenuEntity> findAllMenu();
+    Optional<MenuDto> create(MenuDto menuDto);
+    List<MenuDto> findAllMenu();
     Optional<MenuEntity> findById(Long id);
-    Optional<MenuEntity> findByName(String name);
-    Optional<MenuEntity> update(Long id, MenuDto name);
+    Optional<MenuDto> findByName(String name);
+    Optional<MenuDto> update(Long id, MenuDto name);
     void delete(Long id);
 }

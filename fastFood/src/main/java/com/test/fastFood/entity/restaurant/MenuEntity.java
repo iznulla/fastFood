@@ -1,5 +1,6 @@
 package com.test.fastFood.entity.restaurant;
 
+import com.test.fastFood.dto.restaurant.RestaurantDto;
 import com.test.fastFood.entity.order.OrderMenuEntity;
 import lombok.*;
 
@@ -36,5 +37,12 @@ public class MenuEntity {
     public void setRestaurant(RestaurantEntity restaurant) {
         this.restaurant = restaurant;
         restaurant.getMenus().add(this);
+    }
+
+    public RestaurantDto getRestaurant() {
+        return RestaurantDto.builder()
+                .id(restaurant.getId())
+                .name(restaurant.getName())
+                .build();
     }
 }

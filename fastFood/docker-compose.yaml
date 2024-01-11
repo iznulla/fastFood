@@ -30,19 +30,19 @@ services:
       - postgres
     restart: unless-stopped
 
-#  fastfood:
-#    container_name: fastfood
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    depends_on:
-#      - pgadmin
-#      - postgres
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - postgres
-#    restart: unless-stopped
+  fastfood:
+    container_name: fastfood
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - pgadmin
+      - postgres
+    ports:
+      - "8080:8080"
+    networks:
+      - postgres
+    restart: unless-stopped
 
 networks:
   postgres:

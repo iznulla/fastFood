@@ -1,13 +1,10 @@
 package com.test.fastFood.service.email;
 
-import lombok.Getter;
+
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
-import java.time.Instant;
-import java.util.Random;
 
 @Component
 @RequiredArgsConstructor

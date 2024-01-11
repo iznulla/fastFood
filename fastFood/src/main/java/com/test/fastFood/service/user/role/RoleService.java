@@ -13,5 +13,6 @@ public interface RoleService {
     Optional<RoleEntity> update(Long id, RoleDto roleDto);
     Optional<RoleEntity> create(RoleDto roleDto);
     void delete(Long id);
+    Optional<RoleEntity> deletePrivilege(Long roleId, Long privilegeId);
 
 }
