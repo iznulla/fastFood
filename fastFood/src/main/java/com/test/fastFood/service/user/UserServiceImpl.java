@@ -15,6 +15,7 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.Optional;
 @Service
 @Data
 @Builder
+@Transactional
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
@@ -37,13 +39,14 @@ public class UserServiceImpl implements UserService {
         RoleEntity role = roleRepository.findByName(userDto.getRole().getName()).orElseThrow(
                 () -> new ResourceNotFoundException("Not found role with name: " + userDto.getRole().getName())
         );
+        Address address = addressService.createAddress(userDto.getAddress()).orElseThrow();
         try {
             UserEntity user = UserEntity.builder()
                     .username(userDto.getUsername())
                     .password(passwordEncoder.encode(userDto.getPassword()))
                     .role(role)
                     .build();
-            Address address = addressService.createAddress(userDto.getAddress()).orElseThrow();
+
             UserProfile profile = UserProfile.builder()
                     .user(user)
                     .name(userDto.getName())
@@ -52,12 +55,17 @@ public class UserServiceImpl implements UserService {
             profile.setAddress(address);
             user.setUserProfile(profile);
             repository.save(user);
-            emailService.sendSimpleMessage(userDto.getUsername(), "Verify Code", emailVerificationService.generateCode());
             log.debug("Created user by name {}", userDto.getName());
+            try {
+                emailService.sendSimpleMessage(userDto.getUsername(), "Verify Code", emailVerificationService.generateCode());
+            } catch (Exception e) {
+                log.error(e.getMessage());
+                throw new ResourceNotFoundException("Invalid email address");
+            }
             return Optional.of(user);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new ResourceNotFoundException("Invalid input data" + e.getMessage());
+            throw new ResourceNotFoundException("Invalid input data " + e.getMessage());
         }
     }
 

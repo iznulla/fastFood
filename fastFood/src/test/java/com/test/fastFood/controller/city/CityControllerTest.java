@@ -66,7 +66,7 @@ public class CityControllerTest {
     @Order(2)
     @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
     void CityController_updateMethod_ReturnStatusCreatedAndCityDto() {
-        client.patch().uri("/city/1")
+        client.patch().uri("/city/2")
                 .body(Mono.just(cityDto), CountryDto.class)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
@@ -79,7 +79,7 @@ public class CityControllerTest {
     @Order(3)
     @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
     void CityController_getByIdMethod_ReturnStatusOkAndJsonCityDto() {
-        client.get().uri("/city/1")
+        client.get().uri("/city/2")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
@@ -105,7 +105,7 @@ public class CityControllerTest {
     @Order(5)
     @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
     void CityController_deleteByIdMethod_ReturnStatusNoContent() {
-        client.delete().uri("/city/1")
+        client.delete().uri("/city/2")
                 .exchange()
                 .expectStatus().isNoContent();
     }

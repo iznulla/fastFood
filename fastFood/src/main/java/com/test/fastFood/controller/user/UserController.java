@@ -30,7 +30,7 @@ public class UserController {
         return new ResponseEntity<>(ConvertDtoUtils.convertUserToDto(user.orElseThrow()), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('READ_USER')")
+    @PreAuthorize("hasAnyAuthority({'READ_USER', 'ALL'})")
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return new ResponseEntity<>(userService.findAllUsers().stream()
@@ -43,14 +43,14 @@ public class UserController {
         return new ResponseEntity<>(ConvertDtoUtils.convertUserToDto(userService.getUserById(id).orElseThrow()), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('UPDATE_USER')")
+    @PreAuthorize("hasAnyAuthority({'UPDATE_USER', 'ALL'})")
     @PatchMapping("/{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto) {
         Optional<UserEntity> user = userService.updateUser(id, userDto);
         return new ResponseEntity<>(ConvertDtoUtils.convertUserToDto(user.orElseThrow()), HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('DELETE_USER')")
+    @PreAuthorize("hasAnyAuthority({'DELETE_USER', 'ALL'})")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);

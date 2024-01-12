@@ -25,13 +25,13 @@ insert into restaurant (name) values ('Evos');
 --insert into address (street, country_id, city_id, longitude, latitude) values ('MEGA', 1, 1, 41.36970942223147, 69.29096999864346);
 --insert into address (street, country_id, city_id) values ('Pushkin', 1, 1);
 --insert into address (street, country_id, city_id) values ('Vokzal', 1, 1);
---insert into address (street, country_id, city_id, longitude, latitude) values ('ECO Bozor', 1, 1, 41.35473807941441, 69.35377212618005);
+insert into address (street, country_id, city_id, longitude, latitude) values ('ECO Bozor', 1, 3, 41.35473807941441, 69.35377212618005);
 --insert into address (street, country_id, city_id, longitude, latitude) values ('SETOR steeet', 1, 1, 41.37877290431757, 69.28014154570097);
 --insert into address (street, country_id, city_id, longitude, latitude) values ('Yunusobod', 1, 1, 41.36150921509543, 69.27684379953357);
 --insert into address (street, country_id, city_id, longitude, latitude) values ('Parkentskiy', 1, 1, 41.31667834566728, 69.32820439953356);
 --
 ---- create restaurant filial
---insert into restaurant_filial (name, address_id, restaurant_id) values ('Belissimo ECO', 5, 1);
+insert into restaurant_filial (name, address_id, restaurant_id) values ('Belissimo ECO', 1, 2);
 --insert into restaurant_filial (name, address_id, restaurant_id) values ('Belissimo SETOR', 6, 1);
 --insert into restaurant_filial (name, address_id, restaurant_id) values ('Evos Yunusobod', 7, 2);
 --insert into restaurant_filial (name, address_id, restaurant_id) values ('Evos Parkentskiy', 8, 2);

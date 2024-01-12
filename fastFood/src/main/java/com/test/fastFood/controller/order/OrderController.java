@@ -27,7 +27,7 @@ public class OrderController {
                 HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('ORDER_SERVICE')")
+    @PreAuthorize("hasAnyAuthority({'ORDER_SERVICE', 'ALL'})")
     @GetMapping
     public ResponseEntity<List<OrderDto>> getAllOrders() {
         return new ResponseEntity<>(orderService.getAllOrders()
@@ -35,20 +35,20 @@ public class OrderController {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('READ')")
+    @PreAuthorize("hasAnyAuthority({'ORDER_SERVICE', 'ALL'})")
     @GetMapping("/{id}")
     public ResponseEntity<OrderDto> getOrdersById(@PathVariable Long id) {
         return new ResponseEntity<>(ConvertDtoUtils.convertOrderToDto(orderService.getOrderById(id).orElseThrow()), HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAuthority('ORDER_SERVICE')")
+    @PreAuthorize("hasAnyAuthority({'ORDER_SERVICE', 'ALL'})")
     @PatchMapping("/{id}")
-    public ResponseEntity<OrderDto> updateOrder(@PathVariable Long id, @RequestBody OrderStatusDto orderStatus) {
-        return new ResponseEntity<>(ConvertDtoUtils.convertOrderToDto(orderService.updateOrder(id, orderStatus.getOrderStatus()).orElseThrow()),
+    public ResponseEntity<?> updateOrder(@PathVariable Long id, @RequestBody OrderStatusDto orderStatus) {
+        return new ResponseEntity<>(orderService.updateOrder(id, orderStatus.getOrderStatus()),
                 HttpStatus.CREATED);
     }
 
-    @PreAuthorize("hasAuthority('ORDER_SERVICE')")
+    @PreAuthorize("hasAnyAuthority({'ORDER_SERVICE', 'ALL'})")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
         orderService.deleteOrder(id);

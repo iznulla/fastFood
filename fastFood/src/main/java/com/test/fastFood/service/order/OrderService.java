@@ -1,6 +1,7 @@
 package com.test.fastFood.service.order;
 
 import com.test.fastFood.dto.order.OrderCreateDto;
+import com.test.fastFood.dto.order.OrderDto;
 import com.test.fastFood.entity.order.OrderEntity;
 import com.test.fastFood.enums.OrderStatus;
 
@@ -13,6 +14,6 @@ public interface OrderService {
     List<OrderEntity> getAllOrders();
     Optional<OrderEntity> getOrderById(Long id);
     List<OrderEntity> getOrdersByUser(Long id);
-    Optional<OrderEntity> updateOrder(Long id, OrderStatus orderStatus);
+    Optional<OrderDto> updateOrder(Long id, OrderStatus orderStatus);
     void deleteOrder(Long id);
 }

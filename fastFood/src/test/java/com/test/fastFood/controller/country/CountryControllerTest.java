@@ -69,7 +69,7 @@ public class CountryControllerTest {
     @Order(2)
     @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
     void CountryController_updateMethod_ReturnStatusCreatedAndCountryDto() {
-        client.patch().uri("/country/2")
+        client.patch().uri("/country/3")
                 .body(Mono.just(countryDto), CountryDto.class)
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
@@ -82,7 +82,7 @@ public class CountryControllerTest {
     @Order(3)
     @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
     void CountryController_getByIdMethod_ReturnStatusOkAndJsonCountryDto() {
-        client.get().uri("/country/2")
+        client.get().uri("/country/3")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
@@ -108,7 +108,7 @@ public class CountryControllerTest {
     @Order(5)
     @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
     void CountryController_deleteByIdMethod_ReturnStatusNoContent() {
-        client.delete().uri("/country/2")
+        client.delete().uri("/country/3")
                 .exchange()
                 .expectStatus().isNoContent();
     }

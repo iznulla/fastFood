@@ -55,7 +55,7 @@ public class ConvertDtoUtils {
                 .orderStatus(OrderStatus.valueOf(order.getInformation().getOrderStatus().name()))
                 .createdAt(order.getInformation().getOrderAt())
                 .delivery(order.getInformation().getDeliveryTime())
-                .restaurant(order.getInformation().getRestaurantToString())
+//                .restaurant(order.getInformation().getRestaurantToString())
                 .build();
     }
 

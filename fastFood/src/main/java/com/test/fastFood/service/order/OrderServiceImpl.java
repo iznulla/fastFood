@@ -2,6 +2,7 @@ package com.test.fastFood.service.order;
 
 import com.test.fastFood.dto.order.OrderBuilder;
 import com.test.fastFood.dto.order.OrderCreateDto;
+import com.test.fastFood.dto.order.OrderDto;
 import com.test.fastFood.entity.address.Address;
 import com.test.fastFood.entity.order.OrderEntity;
 import com.test.fastFood.entity.order.OrderInformation;
@@ -16,6 +17,7 @@ import com.test.fastFood.repository.RestaurantRepository;
 import com.test.fastFood.service.address.AddressService;
 import com.test.fastFood.service.menu.MenuService;
 import com.test.fastFood.service.user.UserServiceImpl;
+import com.test.fastFood.utils.ConvertDtoUtils;
 import com.test.fastFood.utils.OrderUtils;
 import com.test.fastFood.utils.SecurityUtils;
 import lombok.Builder;
@@ -116,7 +118,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public Optional<OrderEntity> updateOrder(Long id, OrderStatus orderStatus) {
+    public Optional<OrderDto> updateOrder(Long id, OrderStatus orderStatus) {
         OrderEntity order = orderRepository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException(
                         String.format("Order with id %d not found", id)
@@ -125,7 +127,7 @@ public class OrderServiceImpl implements OrderService{
         order.getInformation().setOrderStatus(orderStatus);
         orderRepository.save(order);
         log.warn("Order status is changed to: {}", orderStatus);
-        return Optional.of(order);
+        return Optional.of(ConvertDtoUtils.convertOrderToDto(order));
     }
 
     @Override
@@ -135,6 +137,6 @@ public class OrderServiceImpl implements OrderService{
                         String.format("Order with id %d not found", id)
                 )
         ));
-        log.warn("Order deleted by id {}", id);
+        log.warn("Order deleted  order id {}", id);
     }
 }

@@ -1,5 +1,6 @@
 package com.test.fastFood.dto.order;
 
+import com.test.fastFood.entity.order.OrderEntity;
 import com.test.fastFood.entity.order.OrderMenuEntity;
 import com.test.fastFood.enums.OrderStatus;
 import lombok.AllArgsConstructor;
