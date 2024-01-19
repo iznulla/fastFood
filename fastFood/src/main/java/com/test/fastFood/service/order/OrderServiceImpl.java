@@ -16,7 +16,7 @@ import com.test.fastFood.repository.OrderRepository;
 import com.test.fastFood.repository.RestaurantRepository;
 import com.test.fastFood.service.address.AddressService;
 import com.test.fastFood.service.menu.MenuService;
-import com.test.fastFood.service.user.UserServiceImpl;
+import com.test.fastFood.service.user.UserService;
 import com.test.fastFood.utils.ConvertDtoUtils;
 import com.test.fastFood.utils.OrderUtils;
 import com.test.fastFood.utils.SecurityUtils;
@@ -33,9 +33,9 @@ import java.util.Optional;
 @Data
 @Builder
 @Service
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
-    private final UserServiceImpl userService;
+    private final UserService userService;
     private final MenuService menuService;
     private final RestaurantRepository restaurantRepository;
     private final AddressService addressService;

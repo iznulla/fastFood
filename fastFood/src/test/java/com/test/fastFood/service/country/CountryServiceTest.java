@@ -52,7 +52,7 @@ public class CountryServiceTest {
     @Test
     public void CountryService_getCountryById_ReturnCountryDto() {
         when(countryRepository.findById(1L)).thenReturn(Optional.of(country));
-        CountryDto countryDtoTest = countryService.getCountryById(1L).orElseThrow(() -> new RuntimeException("Country not found"));
+        CountryDto countryDtoTest = countryService.getCountryById(1L).orElseThrow();
         Assertions.assertThat(countryDtoTest).isNotNull();
         Assertions.assertThat(countryDtoTest.getName()).isEqualTo(country.getName());
     }
@@ -61,7 +61,7 @@ public class CountryServiceTest {
     public void CountryService_updateCountry_ReturnCountryDto() {
         when(countryRepository.save(Mockito.any(CountryEntity.class))).thenReturn(country);
         when(countryRepository.findById(1L)).thenReturn(Optional.of(country));
-        CountryDto updatedCountryDtoTest = countryService.updateCountry(1L, updatedCountryDto).orElseThrow(() -> new RuntimeException("Country not found"));
+        CountryDto updatedCountryDtoTest = countryService.updateCountry(1L, updatedCountryDto).orElseThrow();
         Assertions.assertThat(updatedCountryDto).isNotNull();
         Assertions.assertThat(updatedCountryDtoTest.getName()).isEqualTo(updatedCountryDto.getName());
     }

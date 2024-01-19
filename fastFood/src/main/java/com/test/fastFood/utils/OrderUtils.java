@@ -18,12 +18,15 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static java.lang.Math.round;
+
 @Getter
 @RequiredArgsConstructor
 public class OrderUtils {
     int totalSum;
     int totalQuantity;
     int cookTime;
+    static int capacity = 5;
 
     public void addingMenuInOrders(OrderMenuEntity orderMenuEntity, OrderBuilder orderBuilder, MenuEntity menu, List<OrderMenuEntity> orderMenuEntities) {
         orderMenuEntity.setMenu(menu);
@@ -35,14 +38,25 @@ public class OrderUtils {
     }
 
     public static Instant getOrderInformation(Integer time, Integer quantity, Double distance) {
-        int timeCalculate = timeCalculate(time, quantity, distance);
+        int timeCalculate = timeCalculate(time, quantity, capacity, distance);
         return Instant.now().plus(Duration.of(timeCalculate, ChronoUnit.SECONDS));
     }
 
-    private static int timeCalculate(Integer time, Integer quantity, Double distance) {
-        int cookingTime = (time * 60) / quantity;
-        int deliveryTime = (int) (distance * 200) * (3 * 60);
-        return deliveryTime + cookingTime;
+    private static int timeCalculate(Integer time, Integer quantity, int capacity, Double distance) {
+        int fullPeriods = quantity / capacity;
+        // Рассчитываем оставшееся количество блюд после полных периодов
+        int remainingDishes = quantity % capacity;
+        // Рассчитываем время для полных периодов
+        double fullPeriodTime = (double) fullPeriods * capacity * time;
+        // Рассчитываем время для оставшихся блюд, если они есть
+        double remainingTime = (double) remainingDishes * time / capacity;
+        // Общее время приготовления
+        double cookingTime = fullPeriodTime + remainingTime;
+        // Рассчитываем время доставки
+        double deliveryTime = (distance * 200) * (3 * 60);
+        // Общее время, включая приготовление и доставку
+        double totalTime = cookingTime + deliveryTime;
+        return (int) Math.round(totalTime);
     }
 
     public void createAndFillOrderInformation(OrderEntity orderEntity, OrderInformation orderInformation, RestaurantEntity restaurant) {

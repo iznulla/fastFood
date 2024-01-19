@@ -20,8 +20,20 @@ spring:
           auth: ${PROPERTIES_MAIL_SMTP_AUTH}
           starttls:
             enable: ${PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE}
-
-
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+server:
+  servlet:
+    context-path: /
+springdoc:
+  api-docs:
+    enabled: ${API_DOCS_ENABLE}
+    resolve-schema-properties: ${RESOLVE_SCHEMA_PROPERTIES}
+  swagger-ui:
+    enabled: ${SWAGGER_UI_ENABLED}
+  default-produces-media-type: ${DEFAULT_PRODUCES_MEDIA_TYPE}
+  writer-with-default-pretty-printer: ${WRITER_WITH_DEFAULT_PRETTY_PRINTER}
 
 security:
   jwt:

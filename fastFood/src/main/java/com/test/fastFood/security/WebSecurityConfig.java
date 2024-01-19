@@ -42,6 +42,7 @@ public class WebSecurityConfig {
                                 .antMatchers("/login").permitAll()
                                 .antMatchers("/users/*/verify").permitAll()
                                 .antMatchers(HttpMethod.POST,"/users").permitAll()
+                                .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v2/api-docs/**", "/webjars/**", "/swagger-resources/**").permitAll()
                                 .anyRequest().authenticated());
 
         return http.build();

@@ -5,15 +5,10 @@ import com.test.fastFood.dto.user.PrivilegeDto;
 import com.test.fastFood.dto.user.RoleDto;
 import com.test.fastFood.dto.user.UserDto;
 import com.test.fastFood.entity.user.UserProfile;
-import com.test.fastFood.enums.OrderStatus;
 import com.test.fastFood.service.email.EmailServiceImpl;
-import com.test.fastFood.utils.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
-import org.reactivestreams.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -88,7 +83,7 @@ public class UserControllerTest {
     @Test
     @Order(1)
     @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
-    void OrderController_createMethod_ReturnStatusCreatedAndOrderDto() {
+    void UserController_createMethod_ReturnStatusCreatedAndUserDto() {
         EmailServiceImpl emailServiceMock = mock(EmailServiceImpl.class);
         when(emailServiceMock.sendSimpleMessage(anyString(), anyString(), anyString())).thenReturn(true);
         client.post().uri("/users")
@@ -104,7 +99,7 @@ public class UserControllerTest {
     @Test
     @Order(2)
     @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
-    void OrderController_getByIdMethod_ReturnStatusOkAndJsonOrderyDto() {
+    void UserController_getByIdMethod_ReturnStatusOkAndJsonUseryDto() {
         client.get().uri("/users/2")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
@@ -117,7 +112,7 @@ public class UserControllerTest {
     @Test
     @Order(3)
     @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
-    void OrderController_updateMethod_ReturnStatusCreatedAndOrderDto() {
+    void UserController_updateMethod_ReturnStatusCreatedAndUserDto() {
         client.patch().uri("/users/2")
                 .body(Mono.just(userDto), UserDto.class)
                 .accept(MediaType.APPLICATION_JSON)
@@ -130,7 +125,7 @@ public class UserControllerTest {
     @Test
     @Order(4)
     @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
-    void OrderController_geALLMethod_ReturnStatusOkAndListOrderDto() {
+    void UserController_geALLMethod_ReturnStatusOkAndListUserDto() {
         client.get().uri("/users")
                 .accept(MediaType.APPLICATION_JSON)
                 .exchange()
@@ -140,21 +135,21 @@ public class UserControllerTest {
                 .returnResult();
     }
 
-//    @Test
-//    @Order(5)
-//    @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
-//    void OrderController_deleteByIdMethod_ReturnStatusNoContent() {
-//        client.delete().uri("/users/2")
-//                .exchange()
-//                .expectStatus().isNoContent();
-//    }
-//
-//    @Test
-//    @Order(6)
-//    void OrderController_deleteByIdMethod_ReturnStatusForbidden() throws Exception {
-//        this.mockMvc
-//                .perform(delete("/users/2")
-//                        .with(jwt().authorities(new SimpleGrantedAuthority("USER"))))
-//                .andExpect(status().is(403));
-//    }
+    @Test
+    @Order(5)
+    @WithMockUser(username = "admin", password = "admin", authorities = "ALL")
+    void UserController_deleteByIdMethod_ReturnStatusNoContent() {
+        client.delete().uri("/users/2")
+                .exchange()
+                .expectStatus().isNoContent();
+    }
+
+    @Test
+    @Order(6)
+    void UserController_deleteByIdMethod_ReturnStatusForbidden() throws Exception {
+        this.mockMvc
+                .perform(delete("/users/2")
+                        .with(jwt().authorities(new SimpleGrantedAuthority("USER"))))
+                .andExpect(status().is(403));
+    }
 }
